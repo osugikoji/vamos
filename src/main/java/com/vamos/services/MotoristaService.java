@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.vamos.models.Motorista;
 import com.vamos.repositories.MotoristaRepository;
+import com.vamos.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class MotoristaService {
@@ -15,11 +16,7 @@ public class MotoristaService {
 	private MotoristaRepository motoristaRepository;
 	
 	public Motorista find(Integer id) {
-		try {
 			Optional<Motorista> obj = motoristaRepository.findById(id); 
-			return obj.orElseThrow(() -> new Exception());
-		} catch (Exception e) {
-			return null;
-		}
+			return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Motorista.class.getName()));
 	}
 }
