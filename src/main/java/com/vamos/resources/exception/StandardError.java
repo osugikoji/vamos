@@ -1,4 +1,4 @@
-package com.vamos.controllers.exception;
+package com.vamos.resources.exception;
 
 import java.io.Serializable;
 

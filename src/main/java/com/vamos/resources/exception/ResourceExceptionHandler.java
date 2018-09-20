@@ -1,4 +1,4 @@
-package com.vamos.controllers.exception;
+package com.vamos.resources.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.vamos.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
-public class ControllerExceptionHandler {
+public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){
