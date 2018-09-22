@@ -18,7 +18,7 @@ public class MotoristaResource {
 	private MotoristaService motoristaService;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Motorista> find (@PathVariable Integer id){
+	public ResponseEntity<Motorista> find (@PathVariable long id){
 		Motorista obj = motoristaService.find(id);
 		return ResponseEntity.ok().body(obj);	
 	}

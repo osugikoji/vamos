@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.vamos.models.Motorista;
 
 @Repository
-public interface MotoristaRepository extends JpaRepository<Motorista, Integer> {
+public interface MotoristaRepository extends JpaRepository<Motorista, Long> {
 
 }

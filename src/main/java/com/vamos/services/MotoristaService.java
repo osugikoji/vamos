@@ -15,7 +15,7 @@ public class MotoristaService {
 	@Autowired
 	private MotoristaRepository motoristaRepository;
 	
-	public Motorista find(Integer id) {
+	public Motorista find(long id) {
 			Optional<Motorista> obj = motoristaRepository.findById(id); 
 			return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Motorista.class.getName()));
 	}
