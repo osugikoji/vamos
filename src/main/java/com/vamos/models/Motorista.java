@@ -1,92 +1,65 @@
 package com.vamos.models;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
-public class Motorista implements Serializable {
+public class Motorista extends UsuarioAbstract {
+	
 	private static final long serialVersionUID = 1L;
+	private String cpfOuCnpj;
+	private String cnh;
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
+	public Motorista( ) {}
 	
-	private String dataNascimento;
-	
-	private String email;
-	
-	private String senha;
-	
-	public Motorista(Integer id, String dataNascimento, String email, String senha) {
+	public Motorista(String cpfOuCnpj, String cnh) {
 		super();
-		this.id = id;
-		this.dataNascimento = dataNascimento;
-		this.email = email;
-		this.senha = senha;
+		this.cpfOuCnpj = cpfOuCnpj;
+		this.cnh = cnh;
 	}
 	
-	public Motorista() {
-		
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
 	}
-
-	public Integer getId() {
-		return id;
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
 	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	public String getCnh() {
+		return cnh;
 	}
-
-	public String getDataNascimento() {
-		return dataNascimento;
+	public void setCnh(String cnh) {
+		this.cnh = cnh;
 	}
-
-	public void setDataNascimento(String dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		int result = super.hashCode();
+		result = prime * result + ((cnh == null) ? 0 : cnh.hashCode());
+		result = prime * result + ((cpfOuCnpj == null) ? 0 : cpfOuCnpj.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Motorista other = (Motorista) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (cnh == null) {
+			if (other.cnh != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!cnh.equals(other.cnh))
+			return false;
+		if (cpfOuCnpj == null) {
+			if (other.cpfOuCnpj != null)
+				return false;
+		} else if (!cpfOuCnpj.equals(other.cpfOuCnpj))
 			return false;
 		return true;
+	}
+	@Override
+	public String toString() {
+		return "Motorista [cpfOuCnpj=" + cpfOuCnpj + ", cnh=" + cnh + "]";
 	}
 }
