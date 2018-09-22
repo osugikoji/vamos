@@ -1,4 +1,4 @@
-package com.vamos.domain;
+package com.vamos.models;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
