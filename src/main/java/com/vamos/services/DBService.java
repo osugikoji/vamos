@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vamos.domain.Cidade;
+import com.vamos.domain.Endereco;
 import com.vamos.domain.Estado;
 import com.vamos.repositories.CidadeRepository;
+import com.vamos.repositories.EnderecoRepository;
 import com.vamos.repositories.EstadoRepository;
 
 @Service
@@ -17,6 +19,8 @@ public class DBService {
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public void instantiateDataBase() {
 		
@@ -33,6 +37,11 @@ public class DBService {
 		
 		estadoRepository.saveAll(Arrays.asList(estado1,estado2));
 		cidadeRepository.saveAll(Arrays.asList(cidade1,cidade2,cidade3,cidade4));
+		
+		Endereco endereco1 = new Endereco(null, "Rua Jose Bernardinetti", "180", null, "Jardim Recanto do Valle", cidade2);
+		Endereco endereco2 = new Endereco(null, "Rua Itaperuna", "801", null, "Icarai", cidade3);
+		
+		enderecoRepository.saveAll(Arrays.asList(endereco1,endereco2));
 	}
 
 }

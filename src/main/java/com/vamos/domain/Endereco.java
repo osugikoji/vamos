@@ -37,7 +37,7 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 	
