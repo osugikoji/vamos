@@ -1,4 +1,4 @@
-package com.vamos.models;
+package com.vamos.domain;
 
 import javax.persistence.Entity;
 

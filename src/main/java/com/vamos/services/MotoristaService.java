@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vamos.models.Motorista;
+import com.vamos.domain.Motorista;
 import com.vamos.repositories.MotoristaRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
 

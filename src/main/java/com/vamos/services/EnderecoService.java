@@ -2,7 +2,7 @@ package com.vamos.services;
 
 import java.util.Optional;
 
-import com.vamos.models.Endereco;
+import com.vamos.domain.Endereco;
 import com.vamos.repositories.EnderecoRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
 
