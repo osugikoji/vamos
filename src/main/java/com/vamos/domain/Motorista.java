@@ -1,11 +1,7 @@
 package com.vamos.domain;
 
-import javax.persistence.Entity;
-
-@Entity
 public class Motorista extends UsuarioAbstract {
 	
-	private static final long serialVersionUID = 1L;
 	private String cpfOuCnpj;
 	private String cnh;
 	
@@ -29,6 +25,7 @@ public class Motorista extends UsuarioAbstract {
 	public void setCnh(String cnh) {
 		this.cnh = cnh;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,6 +55,7 @@ public class Motorista extends UsuarioAbstract {
 			return false;
 		return true;
 	}
+	
 	@Override
 	public String toString() {
 		return "Motorista [cpfOuCnpj=" + cpfOuCnpj + ", cnh=" + cnh + "]";

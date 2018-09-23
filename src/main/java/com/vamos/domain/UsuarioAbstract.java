@@ -1,16 +1,8 @@
 package com.vamos.domain;
 
-import java.io.Serializable;
+public abstract class UsuarioAbstract {
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-public abstract class UsuarioAbstract implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	@Id @GeneratedValue (strategy = GenerationType.IDENTITY)
-	protected long id;
+	protected Integer id;
 	protected String nome;
 	protected String email;
 	protected String senha;
@@ -18,7 +10,7 @@ public abstract class UsuarioAbstract implements Serializable {
 	
 	public UsuarioAbstract() {}
 	
-	public UsuarioAbstract(long id, String nome, String email, String senha, String dataNasc) {
+	public UsuarioAbstract(Integer id, String nome, String email, String senha, String dataNasc) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -26,10 +18,10 @@ public abstract class UsuarioAbstract implements Serializable {
 		this.senha = senha;
 		this.dataNasc = dataNasc;
 	}
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getNome() {
@@ -56,6 +48,7 @@ public abstract class UsuarioAbstract implements Serializable {
 	public void setDataNasc(String dataNasc) {
 		this.dataNasc = dataNasc;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,6 +60,7 @@ public abstract class UsuarioAbstract implements Serializable {
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -100,11 +94,10 @@ public abstract class UsuarioAbstract implements Serializable {
 			return false;
 		return true;
 	}
+	
 	@Override
 	public String toString() {
 		return "UsuarioAbstract [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", dataNasc="
 				+ dataNasc + "]";
 	}
-	
-	
 }
