@@ -11,11 +11,13 @@ import com.vamos.domain.Cidade;
 import com.vamos.domain.Endereco;
 import com.vamos.domain.Estado;
 import com.vamos.domain.Estudante;
+import com.vamos.domain.Instituicao;
 import com.vamos.domain.Motorista;
 import com.vamos.repositories.CidadeRepository;
 import com.vamos.repositories.EnderecoRepository;
 import com.vamos.repositories.EstadoRepository;
 import com.vamos.repositories.EstudanteRepository;
+import com.vamos.repositories.InstituicaoRepository;
 import com.vamos.repositories.MotoristaRepository;
 
 @Service
@@ -31,6 +33,8 @@ public class DBService {
 	private MotoristaRepository motoristaRepository;
 	@Autowired
 	private EstudanteRepository estudanteRepository; 
+	@Autowired
+	private InstituicaoRepository instituicaoRepository;
 	
 	public void instantiateDataBase() throws ParseException {
 		
@@ -54,10 +58,14 @@ public class DBService {
 		motorista1.getTelefone().addAll(Arrays.asList("1998652354","1933245698"));
 		motoristaRepository.saveAll(Arrays.asList(motorista1));
 		
-		Estudante estudante1 = new Estudante(null, "Koji Osugi", "koji097@gmail.com", "1234", sdf.parse("08/03/1997"));
+		Instituicao instituicao1 = new Instituicao(null, "PUC-Campinas");
+		Instituicao instituicao2 = new Instituicao(null, "Mackenzie");
+		instituicaoRepository.saveAll(Arrays.asList(instituicao1,instituicao2));
+		
+		Estudante estudante1 = new Estudante(null, "Koji Osugi", "koji097@gmail.com", "1234", sdf.parse("08/03/1997"), instituicao1);
 		estudante1.getTelefone().addAll(Arrays.asList("19982252031","1933297165"));
 		
-		Estudante estudante2 = new Estudante(null, "Joao Zullo", "zullo@gmail.com", "1234", sdf.parse("08/03/1995"));
+		Estudante estudante2 = new Estudante(null, "Joao Zullo", "zullo@gmail.com", "1234", sdf.parse("08/03/1995"), instituicao2);
 		estudante2.getTelefone().addAll(Arrays.asList("37334456989","3798562456"));
 		
 		estudanteRepository.saveAll(Arrays.asList(estudante1,estudante2));
