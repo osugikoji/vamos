@@ -25,7 +25,7 @@ public class Endereco implements Serializable {
 	private String bairro;
 	
 	@JsonIgnore
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="estudante_id")
 	private Estudante estudante;
 	

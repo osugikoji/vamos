@@ -12,10 +12,10 @@ import com.vamos.domain.Endereco;
 import com.vamos.domain.Estado;
 import com.vamos.domain.Estudante;
 import com.vamos.domain.Motorista;
-import com.vamos.domain.Usuario;
 import com.vamos.repositories.CidadeRepository;
 import com.vamos.repositories.EnderecoRepository;
 import com.vamos.repositories.EstadoRepository;
+import com.vamos.repositories.EstudanteRepository;
 import com.vamos.repositories.MotoristaRepository;
 
 @Service
@@ -28,7 +28,9 @@ public class DBService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	@Autowired
-	private MotoristaRepository motoristaRepository; 
+	private MotoristaRepository motoristaRepository;
+	@Autowired
+	private EstudanteRepository estudanteRepository; 
 	
 	public void instantiateDataBase() throws ParseException {
 		
@@ -49,17 +51,21 @@ public class DBService {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		Motorista motorista1 = new Motorista(null, "José da Silva", "jose@gmail.com", "123", sdf.parse("08/03/1965"), "018.389.556.82", "12597" );
+		motorista1.getTelefone().addAll(Arrays.asList("1998652354","1933245698"));
 		motoristaRepository.saveAll(Arrays.asList(motorista1));
 		
 		Estudante estudante1 = new Estudante(null, "Koji Osugi", "koji097@gmail.com", "1234", sdf.parse("08/03/1997"));
+		estudante1.getTelefone().addAll(Arrays.asList("19982252031","1933297165"));
+		
 		Estudante estudante2 = new Estudante(null, "Joao Zullo", "zullo@gmail.com", "1234", sdf.parse("08/03/1995"));
+		estudante2.getTelefone().addAll(Arrays.asList("37334456989","3798562456"));
+		
+		estudanteRepository.saveAll(Arrays.asList(estudante1,estudante2));
 		
 		Endereco endereco1 = new Endereco(null, "Rua Jose Bernardinetti", "180", null, "Jardim Recanto do Valle", cidade2, estudante1);
 		Endereco endereco2 = new Endereco(null, "Rua Itaperuna", "801", null, "Icarai", cidade3, estudante2);
 		
 		enderecoRepository.saveAll(Arrays.asList(endereco1,endereco2));
-		
-		
 	}
 
 }
