@@ -2,12 +2,15 @@ package com.vamos.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Endereco implements Serializable {
@@ -21,13 +24,18 @@ public class Endereco implements Serializable {
 	private String complemento;
 	private String bairro;
 	
+	@JsonIgnore
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="estudante_id")
+	private Estudante estudante;
+	
 	@ManyToOne
 	@JoinColumn(name="cidade_id")
 	private Cidade cidade;
 	
 	public Endereco() {}
 	
-	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, Cidade cidade) {
+	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, Cidade cidade, Estudante estudante) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -35,6 +43,7 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cidade = cidade;
+		this.estudante = estudante;
 	}
 
 	public Integer getId() {
@@ -84,6 +93,14 @@ public class Endereco implements Serializable {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+	
+	public Estudante getEstudante() {
+		return estudante;
+	}
+
+	public void setEstudante(Estudante estudante) {
+		this.estudante = estudante;
 	}
 
 	@Override
