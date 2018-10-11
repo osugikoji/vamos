@@ -55,7 +55,7 @@ public class DBService {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		Motorista motorista1 = new Motorista(null, "José da Silva", "jose@gmail.com", "123", sdf.parse("08/03/1965"), "018.389.556.82", "12597" );
-		motorista1.getTelefone().addAll(Arrays.asList("1998652354","1933245698"));
+		motorista1.getTelefones().addAll(Arrays.asList("1998652354","1933245698"));
 		motoristaRepository.saveAll(Arrays.asList(motorista1));
 		
 		Instituicao instituicao1 = new Instituicao(null, "PUC-Campinas");
@@ -63,10 +63,10 @@ public class DBService {
 		instituicaoRepository.saveAll(Arrays.asList(instituicao1,instituicao2));
 		
 		Estudante estudante1 = new Estudante(null, "Koji Osugi", "koji097@gmail.com", "1234", sdf.parse("08/03/1997"), instituicao1);
-		estudante1.getTelefone().addAll(Arrays.asList("19982252031","1933297165"));
+		estudante1.getTelefones().addAll(Arrays.asList("19982252031","1933297165"));
 		
 		Estudante estudante2 = new Estudante(null, "Joao Zullo", "zullo@gmail.com", "1234", sdf.parse("08/03/1995"), instituicao2);
-		estudante2.getTelefone().addAll(Arrays.asList("37334456989","3798562456"));
+		estudante2.getTelefones().addAll(Arrays.asList("37334456989","3798562456"));
 		
 		estudanteRepository.saveAll(Arrays.asList(estudante1,estudante2));
 		
