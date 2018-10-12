@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @MappedSuperclass
@@ -29,6 +30,7 @@ public abstract class Usuario implements Serializable {
 	
 	private String senha;
 	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataNasc;
 	
 	@ElementCollection

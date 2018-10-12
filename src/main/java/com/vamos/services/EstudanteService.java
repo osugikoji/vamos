@@ -27,6 +27,7 @@ public class EstudanteService {
 	public Estudante find(Integer id) {
 		
 		Optional<Estudante> obj = estudanteRepository.findById(id);
+
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Estudante.class.getName()));
 	}
 	
@@ -34,7 +35,7 @@ public class EstudanteService {
 		Estudante obj = estudanteRepository.findByEmail(email);
 		if(obj == null) {
 			//throw new ObjectNotFoundException("Objeto nao encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
-			new ObjectNotFoundException("Objeto não encontrado! Id: " +  ", Tipo: " + Estudante.class.getName());
+			throw new ObjectNotFoundException("Objeto não encontrado! Id: " +  ", Tipo: " + Estudante.class.getName());
 		}
 		return obj;
 	}

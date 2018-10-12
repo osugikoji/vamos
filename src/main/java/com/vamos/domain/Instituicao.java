@@ -1,11 +1,16 @@
 package com.vamos.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Instituicao implements Serializable {
@@ -16,6 +21,10 @@ public class Instituicao implements Serializable {
 	private Integer id;
 	
 	private String nome;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="instituicao")
+	private List<Estudante> estudantes = new ArrayList<>();
 	
 	
 	public Instituicao() {
@@ -42,6 +51,14 @@ public class Instituicao implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public List<Estudante> getEstudantes() {
+		return estudantes;
+	}
+
+	public void setEstudantes(List<Estudante> estudantes) {
+		this.estudantes = estudantes;
 	}
 
 	@Override
