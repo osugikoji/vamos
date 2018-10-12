@@ -2,6 +2,8 @@ package com.vamos.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +39,7 @@ public class EstudanteResource {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Estudante> insert(@RequestBody EstudanteNewDTO objDTO){
+	public ResponseEntity<Estudante> insert(@Valid @RequestBody EstudanteNewDTO objDTO){
 		Estudante obj = estudanteService.fromDTO(objDTO);
 		obj = estudanteService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -27,10 +28,10 @@ public class EstudanteNewDTO implements Serializable {
 	private String senha;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
-	//@NotEmpty(message = "Preenchimento obrigatorio")
+	@NotNull(message = "Preenchimento obrigatorio")
 	private Date dataNasc;
 	
-	@NotEmpty(message = "Preenchimento obrigatorio")
+	@NotNull(message = "Preenchimento obrigatorio")
 	private Integer instituicaoId;
 	
 	@NotEmpty(message = "Preenchimento obrigatorio")
@@ -49,7 +50,7 @@ public class EstudanteNewDTO implements Serializable {
 	
 	private String telefone2;
 	
-	@NotEmpty(message = "Preenchimento obrigatorio")
+	@NotNull(message = "Preenchimento obrigatorio")
 	private Integer cidadeId;
 	
 	public EstudanteNewDTO() {
