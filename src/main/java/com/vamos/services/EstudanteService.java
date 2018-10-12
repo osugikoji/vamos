@@ -10,10 +10,12 @@ import com.vamos.domain.Cidade;
 import com.vamos.domain.Endereco;
 import com.vamos.domain.Estudante;
 import com.vamos.domain.Instituicao;
+import com.vamos.dto.EstudanteDTO;
 import com.vamos.dto.EstudanteNewDTO;
 import com.vamos.repositories.EnderecoRepository;
 import com.vamos.repositories.EstudanteRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
+
 
 @Service
 public class EstudanteService {
@@ -46,6 +48,23 @@ public class EstudanteService {
 		obj = estudanteRepository.save(obj);
 		enderecoRepository.saveAll(obj.getEnderecos());
 		return obj;
+	}
+	
+	public Estudante update(Estudante obj) {
+		Estudante newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return estudanteRepository.save(newObj);
+	}
+	
+	private void updateData(Estudante newObj, Estudante obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
+		newObj.setDataNasc(obj.getDataNasc());
+		newObj.setInstituicao(obj.getInstituicao());
+	}
+
+	public Estudante fromDTO(EstudanteDTO objDTO) {
+		return new Estudante(null,objDTO.getNome(),objDTO.getEmail(),null,objDTO.getDataNasc(),new Instituicao(objDTO.getInstituicaoId(),null));
 	}
 	
 	public Estudante fromDTO(EstudanteNewDTO objDTO) {
