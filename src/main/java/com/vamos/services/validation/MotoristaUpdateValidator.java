@@ -14,28 +14,29 @@ import org.springframework.web.servlet.HandlerMapping;
 import com.vamos.domain.Estudante;
 import com.vamos.domain.Motorista;
 import com.vamos.dto.EstudanteDTO;
+import com.vamos.dto.MotoristaDTO;
 import com.vamos.repositories.EstudanteRepository;
 import com.vamos.repositories.MotoristaRepository;
 import com.vamos.resources.exception.FieldMessage;
 
 
-public class EstudanteUpdateValidator implements ConstraintValidator<EstudanteUpdate, EstudanteDTO>  {
+public class MotoristaUpdateValidator implements ConstraintValidator<MotoristaUpdate, MotoristaDTO>  {
 
 	@Autowired
 	private HttpServletRequest request;
 	
 	@Autowired
-	private EstudanteRepository repository;
+	private MotoristaRepository repository;
 	
 	@Autowired
-	private MotoristaRepository motoristaRepository;
+	private EstudanteRepository estudanteRepository;
 	
 	@Override
-	public void initialize(EstudanteUpdate ann) {
+	public void initialize(MotoristaUpdate ann) {
 	}
 
 	@Override
-	public boolean isValid(EstudanteDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(MotoristaDTO objDto, ConstraintValidatorContext context) {
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
@@ -43,11 +44,11 @@ public class EstudanteUpdateValidator implements ConstraintValidator<EstudanteUp
 		
 		List<FieldMessage> list = new ArrayList<>();
 		
-		Estudante aux = repository.findByEmail(objDto.getEmail());
+		Motorista aux = repository.findByEmail(objDto.getEmail());
 		if(aux != null && !aux.getId().equals(uriId))
 			list.add(new FieldMessage("email", "Email ja existente"));
 		
-		Motorista aux2 = motoristaRepository.findByEmail(objDto.getEmail());
+		Estudante aux2 = estudanteRepository.findByEmail(objDto.getEmail());
 		if(aux2 != null && !aux2.getId().equals(uriId))
 			list.add(new FieldMessage("email", "Email ja existente"));
 		

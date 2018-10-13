@@ -54,7 +54,7 @@ public class DBService {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		Motorista motorista1 = new Motorista(null, "José da Silva", "jose@gmail.com", "123", sdf.parse("08/03/1965"), "018.389.556.82", "12597" );
+		Motorista motorista1 = new Motorista(null, "José da Silva", "jose@gmail.com", "123", sdf.parse("08/03/1965"), "01838955682", "12597" );
 		motorista1.getTelefones().addAll(Arrays.asList("1998652354","1933245698"));
 		motoristaRepository.saveAll(Arrays.asList(motorista1));
 		

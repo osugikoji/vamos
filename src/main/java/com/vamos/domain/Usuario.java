@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,7 @@ public abstract class Usuario implements Serializable {
 	
 	private String nome;
 	
+	@Column(unique=true)
 	private String email;
 	
 	private String senha;

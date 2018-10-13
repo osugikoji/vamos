@@ -11,24 +11,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public class Motorista extends Usuario {
 	private static final long serialVersionUID = 1L;
 	
-	private String cpfOuCnpj;
+	private String cpf;
+	
 	private String cnh;
 	
 	public Motorista( ) {
 		
 	}
 	
-	public Motorista(Integer id, String nome, String email, String senha, Date dataNasc, String cpfOuCnpj, String cnh) {
+	public Motorista(Integer id, String nome, String email, String senha, Date dataNasc, String cpf, String cnh) {
 		super(id, nome, email, senha, dataNasc);
-		this.cpfOuCnpj = cpfOuCnpj;
+		this.cpf = cpf;
 		this.cnh = cnh;
 	}
 
-	public String getCpfOuCnpj() {
-		return cpfOuCnpj;
+	public String getCpf() {
+		return cpf;
 	}
-	public void setCpfOuCnpj(String cpfOuCnpj) {
-		this.cpfOuCnpj = cpfOuCnpj;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	public String getCnh() {
 		return cnh;
