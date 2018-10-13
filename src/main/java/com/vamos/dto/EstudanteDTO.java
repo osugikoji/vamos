@@ -3,13 +3,16 @@ package com.vamos.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.vamos.services.validation.EstudanteUpdate;
 
+@EstudanteUpdate
 public class EstudanteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -18,6 +21,7 @@ public class EstudanteDTO implements Serializable {
 	private String nome;
 	
 	@NotEmpty(message = "Preenchimento obrigatorio")
+	@Email(message = "Email invalido")
 	private String email;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
