@@ -64,12 +64,12 @@ public class EstudanteService {
 	}
 
 	public Estudante fromDTO(EstudanteDTO objDTO) {
-		return new Estudante(null,objDTO.getNome(),objDTO.getEmail(),null,objDTO.getDataNasc(),new Instituicao(objDTO.getInstituicaoId(),null));
+		return new Estudante(null,objDTO.getNome(),objDTO.getEmail(),null,objDTO.getDataNasc(),new Instituicao(objDTO.getInstituicaoId(),null),null,null);
 	}
 	
 	public Estudante fromDTO(EstudanteNewDTO objDTO) {
 		Instituicao instituicao = new Instituicao(objDTO.getInstituicaoId(), null);
-		Estudante estudante = new Estudante(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getSenha(), objDTO.getDataNasc(), instituicao);
+		Estudante estudante = new Estudante(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getSenha(), objDTO.getDataNasc(), instituicao,null,null);
 		Cidade cidade = new Cidade(objDTO.getCidadeId(), null, null);
 		Endereco endereco = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(), objDTO.getBairro(), cidade, estudante);
 		estudante.getEnderecos().add(endereco);

@@ -1,6 +1,8 @@
 package com.vamos.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vamos.domain.enums.Turno;
@@ -34,6 +37,10 @@ public class Grupo implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="motorista_id")
 	private Motorista motorista;
+	
+	@OneToMany
+	private List<Estudante> estudantes = new ArrayList<>();
+
 	
 	public Grupo() {
 		
@@ -96,6 +103,14 @@ public class Grupo implements Serializable{
 
 	public void setMotorista(Motorista motorista) {
 		this.motorista = motorista;
+	}
+
+	public List<Estudante> getEstudantes() {
+		return estudantes;
+	}
+
+	public void setEstudantes(List<Estudante> estudantes) {
+		this.estudantes = estudantes;
 	}
 
 	@Override
