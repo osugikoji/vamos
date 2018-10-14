@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vamos.domain.enums.Turno;
 
 @Entity
@@ -29,6 +30,7 @@ public class Grupo implements Serializable{
 	
 	private Integer turno;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="motorista_id")
 	private Motorista motorista;
