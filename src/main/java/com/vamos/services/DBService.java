@@ -77,12 +77,13 @@ public class DBService {
 		
 		Estudante estudante1 = new Estudante(null, "Koji Osugi", "koji097@gmail.com", "1234", sdf.parse("08/03/1997"), instituicao1,grupo1,EstadoPagamento.PENDENTE);
 		estudante1.getTelefones().addAll(Arrays.asList("19982252031","1933297165"));
-		Estudante estudante2 = new Estudante(null, "Joao Zullo", "zullo@gmail.com", "1234", sdf.parse("08/03/1995"), instituicao2, grupo1,EstadoPagamento.PAGO);
+		Estudante estudante2 = new Estudante(null, "Joao Zullo", "zullo@gmail.com", "1234", sdf.parse("08/03/1995"), instituicao2, grupo3,EstadoPagamento.PAGO);
 		estudante2.getTelefones().addAll(Arrays.asList("37334456989","3798562456"));
 		estudanteRepository.saveAll(Arrays.asList(estudante1,estudante2));
 		
 		grupo1.getEstudantes().addAll(Arrays.asList(estudante1));
-		grupoRepository.saveAll(Arrays.asList(grupo1));
+		grupo3.getEstudantes().addAll(Arrays.asList(estudante2));
+		grupoRepository.saveAll(Arrays.asList(grupo1,grupo3));
 		
 		Endereco endereco1 = new Endereco(null, "Rua Jose Bernardinetti", "180", null, "Jardim Recanto do Valle", cidade2, estudante1);
 		Endereco endereco2 = new Endereco(null, "Rua Itaperuna", "801", null, "Icarai", cidade3, estudante2);

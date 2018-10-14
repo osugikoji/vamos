@@ -14,5 +14,4 @@ public interface GrupoRepository extends JpaRepository<Grupo, Integer>{
 	@Transactional(readOnly=true)
 	@Query("SELECT obj FROM Grupo obj WHERE obj.motorista.id = :motoristaId ORDER BY obj.nome")
 	List<Grupo> findGruposByMotorista(@Param("motoristaId") Integer motorista_id);
-	
 }

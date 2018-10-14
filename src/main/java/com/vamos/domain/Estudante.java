@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.vamos.domain.enums.EstadoPagamento;
 
@@ -25,6 +26,7 @@ public class Estudante extends Usuario{
 	@JoinColumn(name="instituicao_id")
 	private Instituicao instituicao;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="grupo_id")
 	private Grupo grupo;

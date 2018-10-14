@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vamos.domain.Cidade;
 import com.vamos.domain.Endereco;
 import com.vamos.domain.Estudante;
+import com.vamos.domain.Grupo;
 import com.vamos.domain.Instituicao;
 import com.vamos.dto.EstudanteDTO;
 import com.vamos.dto.EstudanteNewDTO;
@@ -25,6 +26,9 @@ public class EstudanteService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private GrupoService grupoService;
 	
 	public Estudante find(Integer id) {
 		
@@ -79,5 +83,10 @@ public class EstudanteService {
 		}
 		
 		return estudante;
+	}
+	
+	public Grupo findGrupo(Integer id) {
+		Estudante estudante = find(id);
+		return grupoService.find(estudante.getGrupo().getId());
 	}
 }

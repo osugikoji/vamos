@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vamos.domain.Estudante;
+import com.vamos.domain.Grupo;
 import com.vamos.dto.EstudanteDTO;
 import com.vamos.dto.EstudanteNewDTO;
 import com.vamos.services.EstudanteService;
@@ -54,6 +55,12 @@ public class EstudanteResource {
 		obj.setId(id);
 		obj = estudanteService.update(obj);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/{id}/grupo")
+	public ResponseEntity<Grupo> findGrupo(@PathVariable Integer id){
+		Grupo obj = estudanteService.findGrupo(id);
+		return ResponseEntity.ok().body(obj);
 	}
 
 }
