@@ -48,35 +48,4 @@ public class Estudante extends Usuario{
 	public void setInstituicao(Instituicao instituicao) {
 		this.instituicao = instituicao;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((enderecos == null) ? 0 : enderecos.hashCode());
-		result = prime * result + ((instituicao == null) ? 0 : instituicao.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Estudante other = (Estudante) obj;
-		if (enderecos == null) {
-			if (other.enderecos != null)
-				return false;
-		} else if (!enderecos.equals(other.enderecos))
-			return false;
-		if (instituicao == null) {
-			if (other.instituicao != null)
-				return false;
-		} else if (!instituicao.equals(other.instituicao))
-			return false;
-		return true;
-	}
 }

@@ -11,12 +11,15 @@ import com.vamos.domain.Cidade;
 import com.vamos.domain.Endereco;
 import com.vamos.domain.Estado;
 import com.vamos.domain.Estudante;
+import com.vamos.domain.Grupo;
 import com.vamos.domain.Instituicao;
 import com.vamos.domain.Motorista;
+import com.vamos.domain.enums.Turno;
 import com.vamos.repositories.CidadeRepository;
 import com.vamos.repositories.EnderecoRepository;
 import com.vamos.repositories.EstadoRepository;
 import com.vamos.repositories.EstudanteRepository;
+import com.vamos.repositories.GrupoRepository;
 import com.vamos.repositories.InstituicaoRepository;
 import com.vamos.repositories.MotoristaRepository;
 
@@ -35,6 +38,8 @@ public class DBService {
 	private EstudanteRepository estudanteRepository; 
 	@Autowired
 	private InstituicaoRepository instituicaoRepository;
+	@Autowired
+	private GrupoRepository grupoRepository;
 	
 	public void instantiateDataBase() throws ParseException {
 		
@@ -52,15 +57,19 @@ public class DBService {
 		estadoRepository.saveAll(Arrays.asList(estado1,estado2));
 		cidadeRepository.saveAll(Arrays.asList(cidade1,cidade2,cidade3,cidade4));
 		
+		Instituicao instituicao1 = new Instituicao(null, "PUC-Campinas");
+		Instituicao instituicao2 = new Instituicao(null, "Mackenzie");
+		instituicaoRepository.saveAll(Arrays.asList(instituicao1,instituicao2));
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		Motorista motorista1 = new Motorista(null, "José da Silva", "jose@gmail.com", "123", sdf.parse("08/03/1965"), "01838955682", "12597" );
 		motorista1.getTelefones().addAll(Arrays.asList("1998652354","1933245698"));
 		motoristaRepository.saveAll(Arrays.asList(motorista1));
 		
-		Instituicao instituicao1 = new Instituicao(null, "PUC-Campinas");
-		Instituicao instituicao2 = new Instituicao(null, "Mackenzie");
-		instituicaoRepository.saveAll(Arrays.asList(instituicao1,instituicao2));
+		Grupo grupo1 = new Grupo(null, "Grupo do Jose Noturno", 15, instituicao1, Turno.NOTURNO, motorista1);
+		Grupo grupo2 = new Grupo(null, "Grupo do Jose Matutino", 15, instituicao2, Turno.MATUTINO, motorista1);
+		grupoRepository.saveAll(Arrays.asList(grupo1,grupo2));
 		
 		Estudante estudante1 = new Estudante(null, "Koji Osugi", "koji097@gmail.com", "1234", sdf.parse("08/03/1997"), instituicao1);
 		estudante1.getTelefones().addAll(Arrays.asList("19982252031","1933297165"));

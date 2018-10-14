@@ -1,8 +1,11 @@
 package com.vamos.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -14,6 +17,9 @@ public class Motorista extends Usuario {
 	private String cpf;
 	
 	private String cnh;
+	
+	@OneToMany(mappedBy="motorista")
+	private List<Grupo> grupos = new ArrayList<>();
 	
 	public Motorista( ) {
 		
@@ -38,4 +44,11 @@ public class Motorista extends Usuario {
 		this.cnh = cnh;
 	}
 
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
 }

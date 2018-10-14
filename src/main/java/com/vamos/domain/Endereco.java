@@ -126,19 +126,4 @@ public class Endereco implements Serializable {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Endereco [logradouro=");
-		builder.append(logradouro);
-		builder.append(", numero=");
-		builder.append(numero);
-		builder.append(", complemento=");
-		builder.append(complemento);
-		builder.append(", bairro=");
-		builder.append(bairro);
-		builder.append("]");
-		return builder.toString();
-	}
 }
