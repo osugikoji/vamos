@@ -20,37 +20,37 @@ public class EstudanteNewDTO implements Serializable {
 	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
 	
-	@NotEmpty(message = "Preenchimento obrigatorio")
-	@Email(message = "Email invalido")
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Email(message = "Email inválido")
 	private String email;
 	
-	@NotEmpty(message = "Preenchimento obrigatorio")
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String senha;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
-	@NotNull(message = "Preenchimento obrigatorio")
+	@NotNull(message = "Preenchimento obrigatório")
 	private Date dataNasc;
 	
-	@NotNull(message = "Preenchimento obrigatorio")
+	@NotNull(message = "Preenchimento obrigatório")
 	private Integer instituicaoId;
 	
-	@NotEmpty(message = "Preenchimento obrigatorio")
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String logradouro;
 	
-	@NotEmpty(message = "Preenchimento obrigatorio")
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String numero;
 	
 	private String complemento;
 	
-	@NotEmpty(message = "Preenchimento obrigatorio")
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String bairro;
 	
-	@NotEmpty(message = "Preenchimento obrigatorio")
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String telefone1;
 	
 	private String telefone2;
 	
-	@NotNull(message = "Preenchimento obrigatorio")
+	@NotNull(message = "Preenchimento obrigatório")
 	private Integer cidadeId;
 	
 	public EstudanteNewDTO() {

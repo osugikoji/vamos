@@ -1,17 +1,14 @@
 package com.vamos.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vamos.domain.Grupo;
 import com.vamos.domain.Motorista;
 import com.vamos.dto.MotoristaDTO;
 import com.vamos.dto.MotoristaNewDTO;
-import com.vamos.repositories.GrupoRepository;
 import com.vamos.repositories.MotoristaRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
 
@@ -21,9 +18,6 @@ public class MotoristaService {
 
 	@Autowired
 	private MotoristaRepository motoristaRepository;
-	
-	@Autowired
-	private GrupoRepository grupoRepository;
 	
 	public Motorista find(Integer id) {
 		
@@ -72,9 +66,5 @@ public class MotoristaService {
 		}
 		
 		return motorista;
-	}
-
-	public List<Grupo> findAllGroupos(Integer id) {
-		return grupoRepository.findGruposByMotorista(id);
 	}
 }

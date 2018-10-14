@@ -19,8 +19,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vamos.domain.Grupo;
 import com.vamos.domain.Motorista;
+import com.vamos.dto.GrupoNewDTO;
 import com.vamos.dto.MotoristaDTO;
 import com.vamos.dto.MotoristaNewDTO;
+import com.vamos.services.GrupoService;
 import com.vamos.services.MotoristaService;
 
 @RestController
@@ -29,6 +31,9 @@ public class MotoristaResource {
 	
 	@Autowired
 	private MotoristaService motoristaService;
+	
+	@Autowired
+	private GrupoService grupoService;
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Motorista> findMotorista(@PathVariable Integer id){
@@ -58,10 +63,24 @@ public class MotoristaResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@GetMapping("/grupos/{id}")
+	public ResponseEntity<Grupo> findGrupo(@PathVariable Integer id){
+		Grupo obj = grupoService.find(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	@GetMapping("/{id}/grupos")
 	public ResponseEntity<List<Grupo>> findAllGroupos(@PathVariable Integer id){
-		List<Grupo> list = motoristaService.findAllGroupos(id);
+		List<Grupo> list = grupoService.findGrouposByMotorista(id);
 		return ResponseEntity.ok().body(list);
+	}
+	
+	@PostMapping("/{id}/grupo")
+	public ResponseEntity<Void> insertGrupo(@PathVariable Integer id, @Valid @RequestBody GrupoNewDTO objDTO){
+		Grupo obj = grupoService.fromDTO(id,objDTO);
+		obj = grupoService.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 
 }

@@ -1,35 +1,31 @@
 package com.vamos.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.vamos.services.validation.EstudanteUpdate;
-
-@EstudanteUpdate
-public class EstudanteDTO implements Serializable {
+public class GrupoNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	@NotEmpty(message = "Preenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
 	
-	@NotEmpty(message = "Preenchimento obrigatório")
-	@Email(message = "Email inválido")
-	private String email;
-	
-	@JsonFormat(pattern="dd/MM/yyyy")
 	@NotNull(message = "Preenchimento obrigatório")
-	private Date dataNasc;
+	private Integer capacidadeMax;
 	
 	@NotNull(message = "Preenchimento obrigatório")
 	private Integer instituicaoId;
+	
+	@NotNull(message = "Preenchimento obrigatório")
+	private Integer turno;
+	
+	public GrupoNewDTO() {
+		
+	}
 
 	public String getNome() {
 		return nome;
@@ -39,20 +35,12 @@ public class EstudanteDTO implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public Integer getCapacidadeMax() {
+		return capacidadeMax;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getDataNasc() {
-		return dataNasc;
-	}
-
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
+	public void setCapacidadeMax(Integer capacidadeMax) {
+		this.capacidadeMax = capacidadeMax;
 	}
 
 	public Integer getInstituicaoId() {
@@ -61,5 +49,13 @@ public class EstudanteDTO implements Serializable {
 
 	public void setInstituicaoId(Integer instituicaoId) {
 		this.instituicaoId = instituicaoId;
+	}
+
+	public Integer getTurno() {
+		return turno;
+	}
+
+	public void setTurno(Integer turno) {
+		this.turno = turno;
 	}
 }
