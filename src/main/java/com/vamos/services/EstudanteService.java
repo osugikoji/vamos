@@ -26,10 +26,7 @@ public class EstudanteService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
-	@Autowired
-	private GrupoService grupoService;
-	
+
 	public Estudante find(Integer id) {
 		
 		Optional<Estudante> obj = estudanteRepository.findById(id);
@@ -68,12 +65,12 @@ public class EstudanteService {
 	}
 
 	public Estudante fromDTO(EstudanteDTO objDTO) {
-		return new Estudante(null,objDTO.getNome(),objDTO.getEmail(),null,objDTO.getDataNasc(),new Instituicao(objDTO.getInstituicaoId(),null),null,null);
+		return new Estudante(null,objDTO.getNome(),objDTO.getEmail(),null,objDTO.getDataNasc(),new Instituicao(objDTO.getInstituicaoId(),null));
 	}
 	
 	public Estudante fromDTO(EstudanteNewDTO objDTO) {
 		Instituicao instituicao = new Instituicao(objDTO.getInstituicaoId(), null);
-		Estudante estudante = new Estudante(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getSenha(), objDTO.getDataNasc(), instituicao,null,null);
+		Estudante estudante = new Estudante(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getSenha(), objDTO.getDataNasc(), instituicao);
 		Cidade cidade = new Cidade(objDTO.getCidadeId(), null, null);
 		Endereco endereco = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(), objDTO.getBairro(), cidade, estudante);
 		estudante.getEnderecos().add(endereco);
@@ -83,10 +80,5 @@ public class EstudanteService {
 		}
 		
 		return estudante;
-	}
-	
-	public Grupo findGrupo(Integer id) {
-		Estudante estudante = find(id);
-		return grupoService.find(estudante.getGrupo().getId());
 	}
 }

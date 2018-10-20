@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
@@ -17,10 +18,11 @@ public class Motorista extends Usuario {
 	private String cpf;
 	
 	private String cnh;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy="motorista")
 	private List<Grupo> grupos = new ArrayList<>();
-	
+
 	public Motorista( ) {
 		
 	}

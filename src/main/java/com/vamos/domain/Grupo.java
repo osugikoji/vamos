@@ -2,7 +2,9 @@ package com.vamos.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,14 +34,13 @@ public class Grupo implements Serializable{
 	private Instituicao instituicao;
 	
 	private Integer turno;
-	
-	@JsonIgnore
+
 	@ManyToOne
 	@JoinColumn(name="motorista_id")
 	private Motorista motorista;
 	
-	@OneToMany
-	private List<Estudante> estudantes = new ArrayList<>();
+	@OneToMany(mappedBy = "id.grupo")
+	private Set<IntegranteGrupo> integrantes = new HashSet<>();
 
 	
 	public Grupo() {
@@ -105,12 +106,12 @@ public class Grupo implements Serializable{
 		this.motorista = motorista;
 	}
 
-	public List<Estudante> getEstudantes() {
-		return estudantes;
+	public Set<IntegranteGrupo> getIntegrantes() {
+		return integrantes;
 	}
 
-	public void setEstudantes(List<Estudante> estudantes) {
-		this.estudantes = estudantes;
+	public void setIntegrantes(Set<IntegranteGrupo> integrantes) {
+		this.integrantes = integrantes;
 	}
 
 	@Override

@@ -71,7 +71,7 @@ public class MotoristaResource {
 	
 	@GetMapping("/{id}/grupos")
 	public ResponseEntity<List<Grupo>> findAllGroupos(@PathVariable Integer id){
-		List<Grupo> list = grupoService.findGrouposByMotorista(id);
+		List<Grupo> list = grupoService.findGrouposByMotoristaId(id);
 		return ResponseEntity.ok().body(list);
 	}
 	
