@@ -1,21 +1,19 @@
 package com.vamos.services;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.vamos.domain.Cidade;
 import com.vamos.domain.Endereco;
 import com.vamos.domain.Estudante;
-import com.vamos.domain.Grupo;
 import com.vamos.domain.Instituicao;
 import com.vamos.dto.EstudanteDTO;
 import com.vamos.dto.EstudanteNewDTO;
 import com.vamos.repositories.EnderecoRepository;
 import com.vamos.repositories.EstudanteRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 
 @Service

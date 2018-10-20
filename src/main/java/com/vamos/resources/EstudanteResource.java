@@ -1,7 +1,6 @@
 package com.vamos.resources;
 
 import com.vamos.domain.Estudante;
-import com.vamos.domain.Grupo;
 import com.vamos.dto.EstudanteDTO;
 import com.vamos.dto.EstudanteNewDTO;
 import com.vamos.services.EstudanteService;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/estudantes")
@@ -50,9 +48,9 @@ public class EstudanteResource {
 	}
 
 	/**
-	 * Insere um estudante na base de dados
+	 * Cadastro de estudante
 	 *
-	 * @param objDTO todos os atributos necessarios para construir um estudante
+	 * @param objDTO todos os atributos necessarios para cadastrar um estudante
 	 * @return nada
 	 */
 	@PostMapping()
@@ -66,7 +64,7 @@ public class EstudanteResource {
 	/**
 	 * Atualiza as informacoes do estudante
 	 *
-	 * @param objDTO atributos do estudante que serao atualizados
+	 * @param objDTO contem atributos do estudante que serao atualizados
 	 * @param id do estudante
 	 * @return nada
 	 */
@@ -76,11 +74,5 @@ public class EstudanteResource {
 		obj.setId(id);
 		obj = estudanteService.update(obj);
 		return ResponseEntity.noContent().build();
-	}
-
-	@GetMapping("/{id}/grupos")
-	public ResponseEntity<List<Grupo>> findGrupos(@PathVariable Integer id){
-		List<Grupo> list = grupoService.findGruposByEstudanteId(id);
-		return ResponseEntity.ok().body(list);
 	}
 }

@@ -1,29 +1,17 @@
 package com.vamos.resources;
 
-import java.net.URI;
-import java.util.List;
-
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.vamos.domain.Grupo;
 import com.vamos.domain.Motorista;
-import com.vamos.dto.GrupoNewDTO;
 import com.vamos.dto.MotoristaDTO;
 import com.vamos.dto.MotoristaNewDTO;
 import com.vamos.services.GrupoService;
 import com.vamos.services.MotoristaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/motoristas")
@@ -34,53 +22,57 @@ public class MotoristaResource {
 	
 	@Autowired
 	private GrupoService grupoService;
-	
+
+	/**
+	 * Busca um motorista atraves do id
+	 *
+	 * @param id do motorista
+	 * @return o motorista
+	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<Motorista> findMotorista(@PathVariable Integer id){
+	public ResponseEntity<Motorista> find(@PathVariable Integer id){
 		Motorista obj = motoristaService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
+
+	/**
+	 * Busca um motorista atraves do email
+	 *
+	 * @param email do motorista
+	 * @return o motorista
+	 */
 	@GetMapping("/email")
-	public ResponseEntity<Motorista> findMotorista(@RequestParam(value="value") String email){
+	public ResponseEntity<Motorista> find(@RequestParam(value="value") String email){
 		Motorista obj = motoristaService.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
 	}
-	
+
+	/**
+	 * Cadastro de motorista
+	 *
+	 * @param objDTO todos os atributos necessarios para cadastrar um motorista
+	 * @return nada
+	 */
 	@PostMapping()
-	public ResponseEntity<Void> insertMotorista(@Valid @RequestBody MotoristaNewDTO objDTO){
+	public ResponseEntity<Void> insert(@Valid @RequestBody MotoristaNewDTO objDTO){
 		Motorista obj = motoristaService.fromDTO(objDTO);
 		obj = motoristaService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
+	/**
+	 * Atualiza as informacoes do motorista
+	 *
+	 * @param objDTO contem atributos do motorista que serao atualizados
+	 * @param id do motorista
+	 * @return nada
+	 */
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> updateMotorista(@Valid @RequestBody MotoristaDTO objDTO, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody MotoristaDTO objDTO, @PathVariable Integer id){
 		Motorista obj = motoristaService.fromDTO(objDTO);
 		obj.setId(id);
 		obj = motoristaService.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@GetMapping("/grupos/{id}")
-	public ResponseEntity<Grupo> findGrupo(@PathVariable Integer id){
-		Grupo obj = grupoService.find(id);
-		return ResponseEntity.ok().body(obj);
-	}
-	
-	@GetMapping("/{id}/grupos")
-	public ResponseEntity<List<Grupo>> findAllGroupos(@PathVariable Integer id){
-		List<Grupo> list = grupoService.findGrouposByMotoristaId(id);
-		return ResponseEntity.ok().body(list);
-	}
-	
-	@PostMapping("/{id}/grupo")
-	public ResponseEntity<Void> insertGrupo(@PathVariable Integer id, @Valid @RequestBody GrupoNewDTO objDTO){
-		Grupo obj = grupoService.fromDTO(id,objDTO);
-		obj = grupoService.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-	}
-
 }
