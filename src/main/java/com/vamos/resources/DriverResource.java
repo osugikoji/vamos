@@ -1,8 +1,8 @@
 package com.vamos.resources;
 
 import com.vamos.domain.Driver;
-import com.vamos.dto.DriverNewDTO;
-import com.vamos.dto.DriverUpdateDTO;
+import com.vamos.dto.input.NewDriverDTO;
+import com.vamos.dto.input.UpdateDriverDTO;
 import com.vamos.services.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +50,7 @@ public class DriverResource {
 	 * @return nada
 	 */
 	@PostMapping()
-	public ResponseEntity<Void> insert(@Valid @RequestBody DriverNewDTO objDTO){
+	public ResponseEntity<Void> insert(@Valid @RequestBody NewDriverDTO objDTO){
 		Driver obj = objDTO.convertToEntity();
 		obj = driverService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -65,7 +65,7 @@ public class DriverResource {
 	 * @return nada
 	 */
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody DriverUpdateDTO objDTO, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody UpdateDriverDTO objDTO, @PathVariable Integer id){
 		Driver obj = objDTO.convertToEntity();
 		obj.setId(id);
 		obj = driverService.update(obj);

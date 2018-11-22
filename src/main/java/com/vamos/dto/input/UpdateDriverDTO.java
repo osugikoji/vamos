@@ -1,4 +1,4 @@
-package com.vamos.dto;
+package com.vamos.dto.input;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -7,32 +7,34 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.vamos.domain.Student;
-import com.vamos.domain.Institution;
+import com.vamos.domain.Driver;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.vamos.services.validation.EstudanteUpdate;
+import com.vamos.services.validation.MotoristaUpdate;
 
 /*DTO que atualiza os dados de um estudante existente*/
-@EstudanteUpdate
-public class StudentUpdateDTO implements Serializable {
+@MotoristaUpdate
+public class UpdateDriverDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
-	@NotEmpty(message = "Preenchimento obrigatório")
+	@NotEmpty(message = "Preenchimento obrigatorio")
 	private String name;
 	
-	@NotEmpty(message = "Preenchimento obrigatório")
-	@Email(message = "Email inválido")
+	@NotEmpty(message = "Preenchimento obrigatorio")
+	@Email(message = "Email invalido")
 	private String email;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
-	@NotNull(message = "Preenchimento obrigatório")
+	@NotNull(message = "Preenchimento obrigatorio")
 	private Date birthDate;
 	
-	@NotNull(message = "Preenchimento obrigatório")
-	private Integer institutionId;
+	@NotEmpty(message = "Preenchimento obrigatorio")
+	private String cpf;
+	
+	@NotEmpty(message = "Preenchimento obrigatorio")
+	private String cnh;
 
 	public String getName() {
 		return name;
@@ -58,15 +60,23 @@ public class StudentUpdateDTO implements Serializable {
 		this.birthDate = birthDate;
 	}
 
-	public Integer getInstitutionId() {
-		return institutionId;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setInstitutionId(Integer institutionId) {
-		this.institutionId = institutionId;
+	public void setCpf(String cpfOuCnpj) {
+		this.cpf = cpfOuCnpj;
 	}
 
-	public Student convertToEntity() {
-		return new Student(null,this.name,this.email,null,this.birthDate,new Institution(this.institutionId,null));
+	public String getCnh() {
+		return cnh;
+	}
+
+	public void setCnh(String cnh) {
+		this.cnh = cnh;
+	}
+
+	public Driver convertToEntity() {
+		return new Driver(null,this.name,this.email,null,this.birthDate,this.cpf, this.cnh);
 	}
 }

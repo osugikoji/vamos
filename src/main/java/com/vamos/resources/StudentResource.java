@@ -1,8 +1,8 @@
 package com.vamos.resources;
 
 import com.vamos.domain.Student;
-import com.vamos.dto.StudentUpdateDTO;
-import com.vamos.dto.StudentNewDTO;
+import com.vamos.dto.input.UpdateStudentDTO;
+import com.vamos.dto.input.NewStudentDTO;
 import com.vamos.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +50,7 @@ public class StudentResource {
 	 * @return nada
 	 */
 	@PostMapping()
-	public ResponseEntity<Void> insert(@Valid @RequestBody StudentNewDTO objDTO){
+	public ResponseEntity<Void> insert(@Valid @RequestBody NewStudentDTO objDTO){
 		Student obj = objDTO.convertToEntity();
 		obj = studentService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -65,7 +65,7 @@ public class StudentResource {
 	 * @return nada
 	 */
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody StudentUpdateDTO objDTO, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody UpdateStudentDTO objDTO, @PathVariable Integer id){
 		Student obj = objDTO.convertToEntity();
 		obj.setId(id);
 		obj = studentService.update(obj);

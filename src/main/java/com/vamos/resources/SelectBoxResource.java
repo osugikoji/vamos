@@ -1,8 +1,6 @@
 package com.vamos.resources;
 
-import com.vamos.dto.get.CityDTO;
-import com.vamos.dto.get.InstitutionDTO;
-import com.vamos.dto.get.StateDTO;
+import com.vamos.dto.output.SelectBoxDTO;
 import com.vamos.services.SelectBoxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +24,9 @@ public class SelectBoxResource {
      * @return os estados
      */
     @GetMapping("/states")
-    public ResponseEntity<List<StateDTO>> findAllStates(){
-        List<StateDTO> objList = selectBoxService.findAllStates();
-        return ResponseEntity.ok().body(objList);
+    public ResponseEntity<List<SelectBoxDTO>> findAllStates(){
+        List<SelectBoxDTO> selectBoxDTOs = selectBoxService.findAllStates();
+        return ResponseEntity.ok().body(selectBoxDTOs);
     }
 
     /**
@@ -39,14 +37,14 @@ public class SelectBoxResource {
      */
 
     @GetMapping("/citiesByState")
-    public ResponseEntity<List<CityDTO>> findAllCitiesByState(@RequestParam(value="value") String state){
-        List<CityDTO> objList = selectBoxService.findAllCitiesByState(state);
-        return ResponseEntity.ok().body(objList);
+    public ResponseEntity<List<SelectBoxDTO>> findAllCitiesByState(@RequestParam(value="value") String state){
+        List<SelectBoxDTO> selectBoxDTOs = selectBoxService.findAllCitiesByState(state);
+        return ResponseEntity.ok().body(selectBoxDTOs);
     }
 
     @GetMapping("/institutions")
-    public ResponseEntity<List<InstitutionDTO>> findAllInstitutions(){
-        List<InstitutionDTO> objList = selectBoxService.findAllInstitutions();
-        return ResponseEntity.ok().body(objList);
+    public ResponseEntity<List<SelectBoxDTO>> findAllInstitutions(){
+        List<SelectBoxDTO> selectBoxDTOs = selectBoxService.findAllInstitutions();
+        return ResponseEntity.ok().body(selectBoxDTOs);
     }
 }

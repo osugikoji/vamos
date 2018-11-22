@@ -1,15 +1,8 @@
-package com.vamos.dto.get;
+package com.vamos.dto.output;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.vamos.domain.Driver;
 import com.vamos.services.validation.MotoristaUpdate;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 /*DTO contendo os detalhes do Grupo da Van*/
 @MotoristaUpdate

@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vamos.domain.Student;
 import com.vamos.domain.Driver;
-import com.vamos.dto.DriverNewDTO;
+import com.vamos.dto.input.NewDriverDTO;
 import com.vamos.repositories.StudentRepository;
 import com.vamos.repositories.DriverRepository;
 import com.vamos.resources.exception.FieldMessage;
 import com.vamos.services.validation.utils.BR;
 
-public class MotoristaInsertValidator implements ConstraintValidator<MotoristaInsert, DriverNewDTO>  {
+public class MotoristaInsertValidator implements ConstraintValidator<MotoristaInsert, NewDriverDTO>  {
 
 	@Autowired
 	private DriverRepository repository;
@@ -29,11 +29,11 @@ public class MotoristaInsertValidator implements ConstraintValidator<MotoristaIn
 	}
 
 	@Override
-	public boolean isValid(DriverNewDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(NewDriverDTO objDto, ConstraintValidatorContext context) {
 		List<FieldMessage> list = new ArrayList<>();
 		
-		if(!BR.isValidCPF(objDto.getCpf()))
-			list.add(new FieldMessage("cpfOuCnpj", "CPF invalido"));
+//		if(!BR.isValidCPF(objDto.getCpf()))
+//			list.add(new FieldMessage("cpfOuCnpj", "CPF invalido"));
 		
 		Driver aux = repository.findByEmail(objDto.getEmail());
 		if(aux != null)

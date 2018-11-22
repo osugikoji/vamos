@@ -1,4 +1,4 @@
-package com.vamos.dto;
+package com.vamos.dto.input;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import com.vamos.domain.enums.ShiftEnum;
 import org.hibernate.validator.constraints.Length;
 
 /*DTO que cria um novo grupo da van*/
-public class GroupNewDTO implements Serializable {
+public class NewGroupDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
@@ -28,7 +28,7 @@ public class GroupNewDTO implements Serializable {
 	@NotNull(message = "Preenchimento obrigatório")
 	private Integer shift;
 	
-	public GroupNewDTO() {
+	public NewGroupDTO() {
 		
 	}
 

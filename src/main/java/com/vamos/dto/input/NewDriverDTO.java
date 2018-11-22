@@ -1,4 +1,4 @@
-package com.vamos.dto;
+package com.vamos.dto.input;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,7 +15,7 @@ import com.vamos.services.validation.MotoristaInsert;
 
 /*DTO que cria um novo motorista*/
 @MotoristaInsert
-public class DriverNewDTO implements Serializable {
+public class NewDriverDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
@@ -29,10 +29,6 @@ public class DriverNewDTO implements Serializable {
 	@NotEmpty(message = "Preenchimento obrigatorio")
 	private String password;
 	
-	@JsonFormat(pattern="dd/MM/yyyy")
-	@NotNull(message = "Preenchimento obrigatorio")
-	private Date birthDate;
-	
 	@NotEmpty(message = "Preenchimento obrigatorio")
 	private String cpf;
 	
@@ -40,11 +36,9 @@ public class DriverNewDTO implements Serializable {
 	private String cnh;
 	
 	@NotEmpty(message = "Preenchimento obrigatorio")
-	private String phone1;
-	
-	private String phone2;
+	private String phone;
 		
-	public DriverNewDTO() {
+	public NewDriverDTO() {
 		
 	}
 
@@ -72,29 +66,12 @@ public class DriverNewDTO implements Serializable {
 		this.password = password;
 	}
 
-	public Date getBirthDate() {
-		return birthDate;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
-
-	public String getPhone1() {
-		return phone1;
-	}
-
-	public void setPhone1(String phone1) {
-		this.phone1 = phone1;
-	}
-
-	public String getPhone2() {
-		return phone2;
-	}
-
-	public void setPhone2(String phone2) {
-		this.phone2 = phone2;
+	public void setPhone(String phone1) {
+		this.phone = phone1;
 	}
 
 	public String getCpf() {
@@ -114,11 +91,8 @@ public class DriverNewDTO implements Serializable {
 	}
 
 	public Driver convertToEntity() {
-		Driver driver = new Driver(null, this.name, this.email, this.password, this.birthDate, this.cpf, this.cnh);
-		driver.getPhones().add(this.phone1);
-		if(this.phone2 != null) {
-			driver.getPhones().add(this.phone2);
-		}
+		Driver driver = new Driver(null, this.name, this.email, this.password, null, this.cpf, this.cnh);
+		driver.getPhones().add(this.phone);
 
 		return driver;
 	}

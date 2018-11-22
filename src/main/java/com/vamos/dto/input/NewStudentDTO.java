@@ -1,4 +1,4 @@
-package com.vamos.dto;
+package com.vamos.dto.input;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,11 +15,11 @@ import com.vamos.services.validation.EstudanteInsert;
 
 /*DTO que cria um novo estudante*/
 @EstudanteInsert
-public class StudentNewDTO implements Serializable {
+public class NewStudentDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
-	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
+	@Length(min=3, max=20, message="O tamanho deve ser entre 5 e 20 caracteres")
 	private String name;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
@@ -28,20 +28,14 @@ public class StudentNewDTO implements Serializable {
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String password;
-	
-//	@JsonFormat(pattern="dd/MM/yyyy")
-//	@NotNull(message = "Preenchimento obrigatório")
-	private Date birthDate;
-	
-	//@NotNull(message = "Preenchimento obrigatório")
-	//private Integer institutionId;
+
+	@NotNull(message = "Preenchimento obrigatório")
+	private String institutionId;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String phone;
-
-//	private Integer cityId;
 	
-	public StudentNewDTO() {
+	public NewStudentDTO() {
 		
 	}
 
@@ -69,14 +63,6 @@ public class StudentNewDTO implements Serializable {
 		this.password = password;
 	}
 
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
 	public String getPhone() {
 		return phone;
 	}
@@ -85,17 +71,17 @@ public class StudentNewDTO implements Serializable {
 		this.phone = phone;
 	}
 
-//	public Integer getInstitutionId() {
-//		return institutionId;
-//	}
+	public String getInstitutionId() {
+		return institutionId;
+	}
 
-//	public void setInstitutionId(Integer institutionId) {
-//		this.institutionId = institutionId;
-//	}
+	public void setInstitutionId(String institutionId) {
+		this.institutionId = institutionId;
+	}
 
 	public Student convertToEntity() {
-	//	Institution institution = new Institution(this.institutionId, null);
-		Student student = new Student(null, this.name, this.email, this.password, this.birthDate, null);
+	    Institution institution = new Institution(new Integer(this.institutionId), null);
+		Student student = new Student(null, this.name, this.email, this.password, null, institution);
 		student.getPhones().add(this.phone);
 		return student;
 	}

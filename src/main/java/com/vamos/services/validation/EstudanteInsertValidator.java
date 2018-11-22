@@ -10,12 +10,12 @@ import com.vamos.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vamos.domain.Driver;
-import com.vamos.dto.StudentNewDTO;
+import com.vamos.dto.input.NewStudentDTO;
 import com.vamos.repositories.StudentRepository;
 import com.vamos.repositories.DriverRepository;
 import com.vamos.resources.exception.FieldMessage;
 
-public class EstudanteInsertValidator implements ConstraintValidator<EstudanteInsert, StudentNewDTO>  {
+public class EstudanteInsertValidator implements ConstraintValidator<EstudanteInsert, NewStudentDTO>  {
 
 	@Autowired
 	private StudentRepository repository;
@@ -28,7 +28,7 @@ public class EstudanteInsertValidator implements ConstraintValidator<EstudanteIn
 	}
 
 	@Override
-	public boolean isValid(StudentNewDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(NewStudentDTO objDto, ConstraintValidatorContext context) {
 		List<FieldMessage> list = new ArrayList<>();
 		
 		Student aux = repository.findByEmail(objDto.getEmail());

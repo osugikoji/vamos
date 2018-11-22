@@ -2,7 +2,7 @@ package com.vamos.services;
 
 import com.vamos.domain.Passenger;
 import com.vamos.domain.VanGroup;
-import com.vamos.dto.get.GroupDetailsDTO;
+import com.vamos.dto.output.GroupDetailsDTO;
 import com.vamos.repositories.GroupRepository;
 import com.vamos.repositories.PassengerRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;

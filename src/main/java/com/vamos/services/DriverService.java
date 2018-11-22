@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vamos.domain.Driver;
-import com.vamos.dto.DriverUpdateDTO;
-import com.vamos.dto.DriverNewDTO;
 import com.vamos.repositories.DriverRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
 

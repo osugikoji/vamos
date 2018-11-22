@@ -3,9 +3,7 @@ package com.vamos.services;
 import com.vamos.domain.City;
 import com.vamos.domain.Institution;
 import com.vamos.domain.State;
-import com.vamos.dto.get.CityDTO;
-import com.vamos.dto.get.InstitutionDTO;
-import com.vamos.dto.get.StateDTO;
+import com.vamos.dto.output.SelectBoxDTO;
 import com.vamos.repositories.CityRepository;
 import com.vamos.repositories.InstitutionRepository;
 import com.vamos.repositories.StateRepository;
@@ -27,63 +25,45 @@ public class SelectBoxService {
 	@Autowired
 	private InstitutionRepository institutionRepository;
 
-	public List<StateDTO> findAllStates(){
+	public List<SelectBoxDTO> findAllStates(){
 		List<State> stateList = stateRepository.findAll();
 		if(stateList == null){
 			// TODO: 20/11/2018 criar exception
 		}
 
-		List<StateDTO> stateDTO = new ArrayList<>();
+		List<SelectBoxDTO> selectBoxDTOs = new ArrayList<>();
 		for(State state : stateList){
-			stateDTO.add(convertStateToStateDTO(state));
+			selectBoxDTOs.add(new SelectBoxDTO(state.getId().toString(), state.getDescription()));
 		}
 
-		return stateDTO;
+		return selectBoxDTOs;
 	}
 
-	public List<CityDTO> findAllCitiesByState(String state){
+	public List<SelectBoxDTO> findAllCitiesByState(String state){
 		List<City> cityList = cityRepository.findAllByState_Description(state);
 		if(cityList == null){
 			// TODO: 20/11/2018 criar exception
 		}
 
-		List<CityDTO> cityDTO = new ArrayList<>();
+		List<SelectBoxDTO> selectBoxDTOs = new ArrayList<>();
 		for(City city : cityList){
-			cityDTO.add(convertCityToCityDTO(city));
+			selectBoxDTOs.add(new SelectBoxDTO(city.getId().toString(), city.getDescription()));
 		}
 
-		return cityDTO;
+		return selectBoxDTOs;
 	}
 
-	public List<InstitutionDTO> findAllInstitutions(){
+	public List<SelectBoxDTO> findAllInstitutions(){
 		List<Institution> institutionsList = institutionRepository.findAll();
 		if(institutionsList == null){
 			// TODO: 20/11/2018 criar exception
 		}
 
-		List<InstitutionDTO> institutionDTO = new ArrayList<>();
+		List<SelectBoxDTO> selectBoxDTOs = new ArrayList<>();
 		for(Institution institution : institutionsList){
-			institutionDTO.add(convertInstitutionToInstitutionDTO(institution));
+			selectBoxDTOs.add(new SelectBoxDTO(institution.getId().toString(), institution.getDescription()));
 		}
 
-		return institutionDTO;
-	}
-
-	private StateDTO convertStateToStateDTO(State state){
-		StateDTO stateDTO = new StateDTO();
-		stateDTO.setState(state.getDescription());
-		return stateDTO;
-	}
-
-	private CityDTO convertCityToCityDTO(City city){
-		CityDTO cityDTO = new CityDTO();
-		cityDTO.setCity(city.getDescription());
-		return cityDTO;
-	}
-
-	private InstitutionDTO convertInstitutionToInstitutionDTO(Institution institution){
-		InstitutionDTO institutionDTO = new InstitutionDTO();
-		institutionDTO.setInstitution(institution.getDescription());
-		return institutionDTO;
+		return selectBoxDTOs;
 	}
 }

@@ -1,8 +1,8 @@
 package com.vamos.resources;
 
 import com.vamos.domain.VanGroup;
-import com.vamos.dto.get.GroupDetailsDTO;
-import com.vamos.dto.GroupNewDTO;
+import com.vamos.dto.output.GroupDetailsDTO;
+import com.vamos.dto.input.NewGroupDTO;
 import com.vamos.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -64,7 +64,7 @@ public class GroupResource {
      * @return nada
      */
     @PostMapping("/driver/{id}")
-    public ResponseEntity<Void> insertGroup(@PathVariable Integer id, @Valid @RequestBody GroupNewDTO objDTO){
+    public ResponseEntity<Void> insertGroup(@PathVariable Integer id, @Valid @RequestBody NewGroupDTO objDTO){
         VanGroup obj = objDTO.convertToEntity(id);
         obj = groupService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();

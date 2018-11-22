@@ -13,13 +13,13 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import com.vamos.domain.Student;
 import com.vamos.domain.Driver;
-import com.vamos.dto.DriverUpdateDTO;
+import com.vamos.dto.input.UpdateDriverDTO;
 import com.vamos.repositories.StudentRepository;
 import com.vamos.repositories.DriverRepository;
 import com.vamos.resources.exception.FieldMessage;
 
 
-public class MotoristaUpdateValidator implements ConstraintValidator<MotoristaUpdate, DriverUpdateDTO>  {
+public class MotoristaUpdateValidator implements ConstraintValidator<MotoristaUpdate, UpdateDriverDTO>  {
 
 	@Autowired
 	private HttpServletRequest request;
@@ -35,7 +35,7 @@ public class MotoristaUpdateValidator implements ConstraintValidator<MotoristaUp
 	}
 
 	@Override
-	public boolean isValid(DriverUpdateDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(UpdateDriverDTO objDto, ConstraintValidatorContext context) {
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
