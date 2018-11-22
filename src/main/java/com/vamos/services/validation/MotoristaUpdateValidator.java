@@ -11,32 +11,31 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.vamos.domain.Estudante;
-import com.vamos.domain.Motorista;
-import com.vamos.dto.EstudanteDTO;
-import com.vamos.dto.MotoristaDTO;
-import com.vamos.repositories.EstudanteRepository;
-import com.vamos.repositories.MotoristaRepository;
+import com.vamos.domain.Student;
+import com.vamos.domain.Driver;
+import com.vamos.dto.DriverUpdateDTO;
+import com.vamos.repositories.StudentRepository;
+import com.vamos.repositories.DriverRepository;
 import com.vamos.resources.exception.FieldMessage;
 
 
-public class MotoristaUpdateValidator implements ConstraintValidator<MotoristaUpdate, MotoristaDTO>  {
+public class MotoristaUpdateValidator implements ConstraintValidator<MotoristaUpdate, DriverUpdateDTO>  {
 
 	@Autowired
 	private HttpServletRequest request;
 	
 	@Autowired
-	private MotoristaRepository repository;
+	private DriverRepository repository;
 	
 	@Autowired
-	private EstudanteRepository estudanteRepository;
+	private StudentRepository studentRepository;
 	
 	@Override
 	public void initialize(MotoristaUpdate ann) {
 	}
 
 	@Override
-	public boolean isValid(MotoristaDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(DriverUpdateDTO objDto, ConstraintValidatorContext context) {
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
@@ -44,11 +43,11 @@ public class MotoristaUpdateValidator implements ConstraintValidator<MotoristaUp
 		
 		List<FieldMessage> list = new ArrayList<>();
 		
-		Motorista aux = repository.findByEmail(objDto.getEmail());
+		Driver aux = repository.findByEmail(objDto.getEmail());
 		if(aux != null && !aux.getId().equals(uriId))
 			list.add(new FieldMessage("email", "Email ja existente"));
 		
-		Estudante aux2 = estudanteRepository.findByEmail(objDto.getEmail());
+		Student aux2 = studentRepository.findByEmail(objDto.getEmail());
 		if(aux2 != null && !aux2.getId().equals(uriId))
 			list.add(new FieldMessage("email", "Email ja existente"));
 		

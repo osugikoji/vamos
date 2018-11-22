@@ -6,36 +6,36 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import com.vamos.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.vamos.domain.Estudante;
-import com.vamos.domain.Motorista;
-import com.vamos.dto.EstudanteNewDTO;
-import com.vamos.repositories.EstudanteRepository;
-import com.vamos.repositories.MotoristaRepository;
+import com.vamos.domain.Driver;
+import com.vamos.dto.StudentNewDTO;
+import com.vamos.repositories.StudentRepository;
+import com.vamos.repositories.DriverRepository;
 import com.vamos.resources.exception.FieldMessage;
 
-public class EstudanteInsertValidator implements ConstraintValidator<EstudanteInsert, EstudanteNewDTO>  {
+public class EstudanteInsertValidator implements ConstraintValidator<EstudanteInsert, StudentNewDTO>  {
 
 	@Autowired
-	private EstudanteRepository repository;
+	private StudentRepository repository;
 	
 	@Autowired
-	private MotoristaRepository motoristaRepository;
+	private DriverRepository driverRepository;
 	
 	@Override
 	public void initialize(EstudanteInsert ann) {
 	}
 
 	@Override
-	public boolean isValid(EstudanteNewDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(StudentNewDTO objDto, ConstraintValidatorContext context) {
 		List<FieldMessage> list = new ArrayList<>();
 		
-		Estudante aux = repository.findByEmail(objDto.getEmail());
+		Student aux = repository.findByEmail(objDto.getEmail());
 		if(aux != null)
 			list.add(new FieldMessage("email", "Email já existente"));
 		
-		Motorista aux2 = motoristaRepository.findByEmail(objDto.getEmail());
+		Driver aux2 = driverRepository.findByEmail(objDto.getEmail());
 		if(aux2 != null)
 			list.add(new FieldMessage("email", "Email já existente"));
 		

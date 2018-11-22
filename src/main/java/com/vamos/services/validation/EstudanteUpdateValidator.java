@@ -8,34 +8,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import com.vamos.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.vamos.domain.Estudante;
-import com.vamos.domain.Motorista;
-import com.vamos.dto.EstudanteDTO;
-import com.vamos.repositories.EstudanteRepository;
-import com.vamos.repositories.MotoristaRepository;
+import com.vamos.domain.Driver;
+import com.vamos.dto.StudentUpdateDTO;
+import com.vamos.repositories.StudentRepository;
+import com.vamos.repositories.DriverRepository;
 import com.vamos.resources.exception.FieldMessage;
 
 
-public class EstudanteUpdateValidator implements ConstraintValidator<EstudanteUpdate, EstudanteDTO>  {
+public class EstudanteUpdateValidator implements ConstraintValidator<EstudanteUpdate, StudentUpdateDTO>  {
 
 	@Autowired
 	private HttpServletRequest request;
 	
 	@Autowired
-	private EstudanteRepository repository;
+	private StudentRepository repository;
 	
 	@Autowired
-	private MotoristaRepository motoristaRepository;
+	private DriverRepository driverRepository;
 	
 	@Override
 	public void initialize(EstudanteUpdate ann) {
 	}
 
 	@Override
-	public boolean isValid(EstudanteDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(StudentUpdateDTO objDto, ConstraintValidatorContext context) {
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
@@ -43,11 +43,11 @@ public class EstudanteUpdateValidator implements ConstraintValidator<EstudanteUp
 		
 		List<FieldMessage> list = new ArrayList<>();
 		
-		Estudante aux = repository.findByEmail(objDto.getEmail());
+		Student aux = repository.findByEmail(objDto.getEmail());
 		if(aux != null && !aux.getId().equals(uriId))
 			list.add(new FieldMessage("email", "Email ja existente"));
 		
-		Motorista aux2 = motoristaRepository.findByEmail(objDto.getEmail());
+		Driver aux2 = driverRepository.findByEmail(objDto.getEmail());
 		if(aux2 != null && !aux2.getId().equals(uriId))
 			list.add(new FieldMessage("email", "Email ja existente"));
 		
