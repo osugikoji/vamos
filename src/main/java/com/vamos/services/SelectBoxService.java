@@ -1,11 +1,13 @@
 package com.vamos.services;
 
 import com.vamos.domain.City;
+import com.vamos.domain.Institution;
 import com.vamos.domain.State;
 import com.vamos.dto.get.CityDTO;
+import com.vamos.dto.get.InstitutionDTO;
 import com.vamos.dto.get.StateDTO;
-import com.vamos.repositories.AddressRepository;
 import com.vamos.repositories.CityRepository;
+import com.vamos.repositories.InstitutionRepository;
 import com.vamos.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AddressService {
+public class SelectBoxService {
 
 	@Autowired
 	private StateRepository stateRepository;
 
 	@Autowired
 	private CityRepository cityRepository;
+
+	@Autowired
+	private InstitutionRepository institutionRepository;
 
 	public List<StateDTO> findAllStates(){
 		List<State> stateList = stateRepository.findAll();
@@ -50,6 +55,20 @@ public class AddressService {
 		return cityDTO;
 	}
 
+	public List<InstitutionDTO> findAllInstitutions(){
+		List<Institution> institutionsList = institutionRepository.findAll();
+		if(institutionsList == null){
+			// TODO: 20/11/2018 criar exception
+		}
+
+		List<InstitutionDTO> institutionDTO = new ArrayList<>();
+		for(Institution institution : institutionsList){
+			institutionDTO.add(convertInstitutionToInstitutionDTO(institution));
+		}
+
+		return institutionDTO;
+	}
+
 	private StateDTO convertStateToStateDTO(State state){
 		StateDTO stateDTO = new StateDTO();
 		stateDTO.setState(state.getDescription());
@@ -60,5 +79,11 @@ public class AddressService {
 		CityDTO cityDTO = new CityDTO();
 		cityDTO.setCity(city.getDescription());
 		return cityDTO;
+	}
+
+	private InstitutionDTO convertInstitutionToInstitutionDTO(Institution institution){
+		InstitutionDTO institutionDTO = new InstitutionDTO();
+		institutionDTO.setInstitution(institution.getDescription());
+		return institutionDTO;
 	}
 }
