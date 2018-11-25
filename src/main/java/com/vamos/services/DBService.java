@@ -34,8 +34,6 @@ public class DBService {
 	@Autowired
 	private PassengerRepository passengerRepository;
 	@Autowired
-	private WeeklyScheduleRepository weeklyScheduleRepository;
-	@Autowired
 	private DailyScheduleRepository dailyScheduleRepository;
 	
 	public void instantiateDataBase() throws ParseException {
@@ -77,25 +75,20 @@ public class DBService {
 		student2.getPhones().addAll(Arrays.asList("37334456989","3798562456"));
 		studentRepository.saveAll(Arrays.asList(student1, student2));
 
-		WeeklySchedule weeklySchedule = new WeeklySchedule();
-		WeeklySchedule weeklySchedule2 = new WeeklySchedule();
-		List<StatusDay> statusDias1 = this.createDias(weeklySchedule);
-		List<StatusDay> statusDias2 = this.createDias(weeklySchedule2);
-		weeklySchedule.getStatusDays().addAll(statusDias1);
-		weeklySchedule2.getStatusDays().addAll(statusDias2);
-		weeklyScheduleRepository.saveAll(Arrays.asList(weeklySchedule, weeklySchedule2));
-		dailyScheduleRepository.saveAll(statusDias1);
-		dailyScheduleRepository.saveAll(statusDias2);
+		Passenger passenger1 = new Passenger(student1, vanGroup1, PaymentStatusEnum.PAID);
+		Passenger passenger2 = new Passenger(student1, vanGroup2, PaymentStatusEnum.PENDING);
+		passengerRepository.saveAll(Arrays.asList(passenger1,passenger2));
 
-		Passenger integrante1 = new Passenger(student1, vanGroup1, PaymentStatusEnum.PAID, weeklySchedule);
-		Passenger integrante2 = new Passenger(student1, vanGroup2, PaymentStatusEnum.PENDING, weeklySchedule2);
-		passengerRepository.saveAll(Arrays.asList(integrante1,integrante2));
+		List<DailySchedule> dailySchedule1 = createDias(passenger1);
+		dailyScheduleRepository.saveAll(dailySchedule1);
+		passenger1.setDailySchedules(dailySchedule1);
+		passengerRepository.saveAll(Arrays.asList(passenger1));
 
-		student1.getGroups().addAll(Arrays.asList(integrante1));
-		student2.getGroups().addAll(Arrays.asList(integrante2));
+		student1.getGroups().addAll(Arrays.asList(passenger1));
+		student2.getGroups().addAll(Arrays.asList(passenger2));
 
-		vanGroup1.getPassengers().addAll(Arrays.asList(integrante1));
-		vanGroup2.getPassengers().addAll(Arrays.asList(integrante2));
+		vanGroup1.getPassengers().addAll(Arrays.asList(passenger1));
+		vanGroup2.getPassengers().addAll(Arrays.asList(passenger2));
 
 		studentRepository.saveAll(Arrays.asList(student1, student2));
 		groupRepository.saveAll(Arrays.asList(vanGroup1, vanGroup2));
@@ -105,15 +98,15 @@ public class DBService {
 		addressRepository.saveAll(Arrays.asList(address1, address2));
 	}
 
-	private List<StatusDay> createDias(WeeklySchedule weeklySchedule){
-		List<StatusDay> list = new ArrayList<>();
-		StatusDay segunda = new StatusDay(null, DayEnum.MONDAY, true, true, weeklySchedule);
-		StatusDay terca = new StatusDay(null, DayEnum.TUESDAY, true, true, weeklySchedule);
-		StatusDay quarta = new StatusDay(null, DayEnum.WEDNESDAY, true, true, weeklySchedule);
-		StatusDay quinta = new StatusDay(null, DayEnum.THURSDAY, true, true, weeklySchedule);
-		StatusDay sexta = new StatusDay(null, DayEnum.FRIDAY, true, true, weeklySchedule);
-		StatusDay sabado = new StatusDay(null, DayEnum.SATURDAY, false, false, weeklySchedule);
-		StatusDay domingo = new StatusDay(null, DayEnum.SUNDAY, false, false, weeklySchedule);
+	private List<DailySchedule> createDias(Passenger passenger){
+		List<DailySchedule> list = new ArrayList<>();
+		DailySchedule segunda = new DailySchedule(null, DayEnum.MONDAY, true, true, passenger);
+		DailySchedule terca = new DailySchedule(null, DayEnum.TUESDAY, true, true, passenger);
+		DailySchedule quarta = new DailySchedule(null, DayEnum.WEDNESDAY, true, true, passenger);
+		DailySchedule quinta = new DailySchedule(null, DayEnum.THURSDAY, true, true, passenger);
+		DailySchedule sexta = new DailySchedule(null, DayEnum.FRIDAY, true, true, passenger);
+		DailySchedule sabado = new DailySchedule(null, DayEnum.SATURDAY, false, false, passenger);
+		DailySchedule domingo = new DailySchedule(null, DayEnum.SUNDAY, false, false, passenger);
 		list.addAll(Arrays.asList(segunda,terca,quarta,quinta,sexta,sabado,domingo));
 		return list;
 	}

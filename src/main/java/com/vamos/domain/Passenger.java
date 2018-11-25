@@ -5,9 +5,10 @@ import com.vamos.domain.enums.PaymentStatusEnum;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,19 +21,17 @@ public class Passenger implements Serializable {
 
     private Integer paymentStatus;
 
-    @OneToOne
-    @JoinColumn(name="weeklySchedule_id")
-    private WeeklySchedule weeklySchedule;
+    @OneToMany
+    private List<DailySchedule> dailySchedules = new ArrayList<>();
 
     public Passenger(){
 
     }
 
-    public Passenger(Student student, VanGroup vanGroup, PaymentStatusEnum paymentStatusEnum, WeeklySchedule weeklySchedule) {
+    public Passenger(Student student, VanGroup vanGroup, PaymentStatusEnum paymentStatusEnum) {
         this.id.setStudent(student);
         this.id.setVanGroup(vanGroup);
         this.paymentStatus = (paymentStatusEnum == null) ? null : paymentStatusEnum.getCod();
-        this.weeklySchedule = weeklySchedule;
     }
 
     public Student getStudent(){
@@ -60,12 +59,12 @@ public class Passenger implements Serializable {
         this.paymentStatus = paymentStatusEnum.getCod();
     }
 
-    public WeeklySchedule getWeeklySchedule() {
-        return weeklySchedule;
+    public List<DailySchedule> getDailySchedules() {
+        return dailySchedules;
     }
 
-    public void setWeeklySchedule(WeeklySchedule weeklySchedule) {
-        this.weeklySchedule = weeklySchedule;
+    public void setDailySchedules(List<DailySchedule> dailySchedules) {
+        this.dailySchedules = dailySchedules;
     }
 
     @Override

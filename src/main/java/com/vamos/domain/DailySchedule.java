@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class StatusDay implements Serializable {
+public class DailySchedule implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -19,23 +19,26 @@ public class StatusDay implements Serializable {
 
     private boolean going;
 
-    private boolean turn;
+    private boolean returning;
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name="weeklySchedule_id")
-    private WeeklySchedule weeklySchedule;
+    @JoinColumns({
+            @JoinColumn(name = "student", insertable = false, updatable = false),
+            @JoinColumn(name = "vanGroup", insertable = false, updatable = false)
+    })
+    private Passenger passenger;
 
-    public StatusDay(){
+    public DailySchedule(){
 
     }
 
-    public StatusDay(Integer id, DayEnum description, boolean going, boolean turn, WeeklySchedule weeklySchedule) {
+    public DailySchedule(Integer id, DayEnum description, boolean going, boolean returning, Passenger passenger) {
         this.id = id;
         this.description = (description == null) ? null : description.getCod();
         this.going = going;
-        this.turn = turn;
-        this.weeklySchedule = weeklySchedule;
+        this.returning = returning;
+        this.passenger = passenger;
     }
 
     public Integer getId() {
@@ -54,12 +57,12 @@ public class StatusDay implements Serializable {
         this.description = description.getCod();
     }
 
-    public WeeklySchedule getWeeklySchedule() {
-        return weeklySchedule;
+    public Passenger getPassenger() {
+        return passenger;
     }
 
-    public void setWeeklySchedule(WeeklySchedule weeklySchedule) {
-        this.weeklySchedule = weeklySchedule;
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
     }
 
     public boolean isGoing() {
@@ -70,20 +73,20 @@ public class StatusDay implements Serializable {
         this.going = going;
     }
 
-    public boolean isTurn() {
-        return turn;
+    public boolean isReturning() {
+        return returning;
     }
 
-    public void setTurn(boolean turn) {
-        this.turn = turn;
+    public void setReturning(boolean returning) {
+        this.returning = returning;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StatusDay statusDay = (StatusDay) o;
-        return Objects.equals(id, statusDay.id);
+        DailySchedule dailySchedule = (DailySchedule) o;
+        return Objects.equals(id, dailySchedule.id);
     }
 
     @Override
