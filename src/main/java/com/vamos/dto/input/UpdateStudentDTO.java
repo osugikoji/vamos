@@ -65,8 +65,4 @@ public class UpdateStudentDTO implements Serializable {
 	public void setInstitutionId(Integer institutionId) {
 		this.institutionId = institutionId;
 	}
-
-	public Student convertToEntity() {
-		return new Student(null,this.name,this.email,null,this.birthDate,new Institution(this.institutionId,null));
-	}
 }

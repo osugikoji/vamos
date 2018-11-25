@@ -1,18 +1,11 @@
 package com.vamos.domain;
 
+import com.vamos.domain.enums.ShiftEnum;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import com.vamos.domain.enums.ShiftEnum;
 
 @Entity
 public class VanGroup implements Serializable{
@@ -36,8 +29,8 @@ public class VanGroup implements Serializable{
 	@JoinColumn(name="driver_id")
 	private Driver driver;
 	
-	@OneToMany(mappedBy = "id.vanGroup")
-	private Set<Passenger> passengers = new HashSet<>();
+	@ManyToMany()
+	private Set<Student> students = new HashSet<>();
 
 	
 	public VanGroup() {
@@ -102,12 +95,12 @@ public class VanGroup implements Serializable{
 		this.driver = driver;
 	}
 
-	public Set<Passenger> getPassengers() {
-		return passengers;
+	public Set<Student> getStudents() {
+		return students;
 	}
 
-	public void setPassengers(Set<Passenger> passengers) {
-		this.passengers = passengers;
+	public void setStudents(Set<Student> students) {
+		this.students = students;
 	}
 
 	@Override

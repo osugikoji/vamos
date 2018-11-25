@@ -23,22 +23,19 @@ public class DailySchedule implements Serializable {
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumns({
-            @JoinColumn(name = "student", insertable = false, updatable = false),
-            @JoinColumn(name = "vanGroup", insertable = false, updatable = false)
-    })
-    private Passenger passenger;
+    @JoinColumn(name="student_id")
+    private Student student;
 
     public DailySchedule(){
 
     }
 
-    public DailySchedule(Integer id, DayEnum description, boolean going, boolean returning, Passenger passenger) {
+    public DailySchedule(Integer id, DayEnum description, boolean going, boolean returning, Student passenger) {
         this.id = id;
         this.description = (description == null) ? null : description.getCod();
         this.going = going;
         this.returning = returning;
-        this.passenger = passenger;
+        this.student = student;
     }
 
     public Integer getId() {
@@ -57,12 +54,12 @@ public class DailySchedule implements Serializable {
         this.description = description.getCod();
     }
 
-    public Passenger getPassenger() {
-        return passenger;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public boolean isGoing() {

@@ -32,8 +32,6 @@ public class DBService {
 	@Autowired
 	private GroupRepository groupRepository;
 	@Autowired
-	private PassengerRepository passengerRepository;
-	@Autowired
 	private DailyScheduleRepository dailyScheduleRepository;
 	
 	public void instantiateDataBase() throws ParseException {
@@ -69,26 +67,22 @@ public class DBService {
 		VanGroup vanGroup3 = new VanGroup(null, "VanGroup do Claudio", 15, institution2, ShiftEnum.AFTERNOON, driver2);
 		groupRepository.saveAll(Arrays.asList(vanGroup1, vanGroup2, vanGroup3));
 		
-		Student student1 = new Student(null, "Koji Osugi", "koji097@gmail.com", "1234", sdf.parse("08/03/1997"), institution1);
+		Student student1 = new Student(null, "Koji Osugi", "koji097@gmail.com", "1234", sdf.parse("08/03/1997"), institution1, PaymentStatusEnum.PENDING);
 		student1.getPhones().addAll(Arrays.asList("19982252031","1933297165"));
-		Student student2 = new Student(null, "Joao Zullo", "zullo@gmail.com", "1234", sdf.parse("08/03/1995"), institution2);
+		Student student2 = new Student(null, "Joao Zullo", "zullo@gmail.com", "1234", sdf.parse("08/03/1995"), institution2, PaymentStatusEnum.PAID);
 		student2.getPhones().addAll(Arrays.asList("37334456989","3798562456"));
 		studentRepository.saveAll(Arrays.asList(student1, student2));
 
-		Passenger passenger1 = new Passenger(student1, vanGroup1, PaymentStatusEnum.PAID);
-		Passenger passenger2 = new Passenger(student1, vanGroup2, PaymentStatusEnum.PENDING);
-		passengerRepository.saveAll(Arrays.asList(passenger1,passenger2));
-
-		List<DailySchedule> dailySchedule1 = createDias(passenger1);
+		List<DailySchedule> dailySchedule1 = createDias(student1);
 		dailyScheduleRepository.saveAll(dailySchedule1);
-		passenger1.setDailySchedules(dailySchedule1);
-		passengerRepository.saveAll(Arrays.asList(passenger1));
+		student1.setDailySchedules(dailySchedule1);
+		studentRepository.saveAll(Arrays.asList(student1));
 
-		student1.getGroups().addAll(Arrays.asList(passenger1));
-		student2.getGroups().addAll(Arrays.asList(passenger2));
+		student1.getGroups().addAll(Arrays.asList(vanGroup1));
+		student2.getGroups().addAll(Arrays.asList(vanGroup2));
 
-		vanGroup1.getPassengers().addAll(Arrays.asList(passenger1));
-		vanGroup2.getPassengers().addAll(Arrays.asList(passenger2));
+		vanGroup1.getStudents().addAll(Arrays.asList(student1));
+		vanGroup2.getStudents().addAll(Arrays.asList(student2));
 
 		studentRepository.saveAll(Arrays.asList(student1, student2));
 		groupRepository.saveAll(Arrays.asList(vanGroup1, vanGroup2));
@@ -98,15 +92,15 @@ public class DBService {
 		addressRepository.saveAll(Arrays.asList(address1, address2));
 	}
 
-	private List<DailySchedule> createDias(Passenger passenger){
+	private List<DailySchedule> createDias(Student student){
 		List<DailySchedule> list = new ArrayList<>();
-		DailySchedule segunda = new DailySchedule(null, DayEnum.MONDAY, true, true, passenger);
-		DailySchedule terca = new DailySchedule(null, DayEnum.TUESDAY, true, true, passenger);
-		DailySchedule quarta = new DailySchedule(null, DayEnum.WEDNESDAY, true, true, passenger);
-		DailySchedule quinta = new DailySchedule(null, DayEnum.THURSDAY, true, true, passenger);
-		DailySchedule sexta = new DailySchedule(null, DayEnum.FRIDAY, true, true, passenger);
-		DailySchedule sabado = new DailySchedule(null, DayEnum.SATURDAY, false, false, passenger);
-		DailySchedule domingo = new DailySchedule(null, DayEnum.SUNDAY, false, false, passenger);
+		DailySchedule segunda = new DailySchedule(null, DayEnum.MONDAY, true, true, student);
+		DailySchedule terca = new DailySchedule(null, DayEnum.TUESDAY, true, true, student);
+		DailySchedule quarta = new DailySchedule(null, DayEnum.WEDNESDAY, true, true, student);
+		DailySchedule quinta = new DailySchedule(null, DayEnum.THURSDAY, true, true, student);
+		DailySchedule sexta = new DailySchedule(null, DayEnum.FRIDAY, true, true, student);
+		DailySchedule sabado = new DailySchedule(null, DayEnum.SATURDAY, false, false, student);
+		DailySchedule domingo = new DailySchedule(null, DayEnum.SUNDAY, false, false, student);
 		list.addAll(Arrays.asList(segunda,terca,quarta,quinta,sexta,sabado,domingo));
 		return list;
 	}

@@ -51,8 +51,7 @@ public class StudentResource {
 	 */
 	@PostMapping()
 	public ResponseEntity<Void> insert(@Valid @RequestBody NewStudentDTO objDTO){
-		Student obj = objDTO.convertToEntity();
-		obj = studentService.insert(obj);
+		Student obj = studentService.insert(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
@@ -66,9 +65,7 @@ public class StudentResource {
 	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody UpdateStudentDTO objDTO, @PathVariable Integer id){
-		Student obj = objDTO.convertToEntity();
-		obj.setId(id);
-		obj = studentService.update(obj);
+		Student obj = studentService.update(objDTO, id);
 		return ResponseEntity.noContent().build();
 	}
 }

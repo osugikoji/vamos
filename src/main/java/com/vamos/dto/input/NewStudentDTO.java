@@ -79,10 +79,4 @@ public class NewStudentDTO implements Serializable {
 		this.institutionId = institutionId;
 	}
 
-	public Student convertToEntity() {
-	    Institution institution = new Institution(new Integer(this.institutionId), null);
-		Student student = new Student(null, this.name, this.email, this.password, null, institution);
-		student.getPhones().add(this.phone);
-		return student;
-	}
 }

@@ -1,10 +1,15 @@
 package com.vamos.services;
 
+import com.vamos.domain.Institution;
 import com.vamos.domain.Student;
+import com.vamos.dto.input.NewStudentDTO;
+import com.vamos.dto.input.UpdateStudentDTO;
 import com.vamos.repositories.AddressRepository;
+import com.vamos.repositories.InstitutionRepository;
 import com.vamos.repositories.StudentRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.OpAnd;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +24,9 @@ public class StudentService {
 	
 	@Autowired
 	private AddressRepository addressRepository;
+
+	@Autowired
+	private InstitutionRepository institutionRepository;
 
 	public Student find(Integer id) {
 		
@@ -36,19 +44,22 @@ public class StudentService {
 	}
 	
 	@Transactional
-	public Student insert(Student obj) {
-		obj.setId(null);
+	public Student insert(NewStudentDTO newStudentDTO) {
+		Optional<Institution> institution = institutionRepository.findById(Integer.parseInt(newStudentDTO.getInstitutionId()));
+		Student obj = new Student(null, newStudentDTO.getName(), newStudentDTO.getEmail(), newStudentDTO.getPassword(),
+				null, institution.get(), null);
 		obj = studentRepository.save(obj);
 		//addressRepository.saveAll(obj.getAddresses());
 		return obj;
 	}
 	
-	public Student update(Student obj) {
-		Student newObj = find(obj.getId());
-		newObj.setName(obj.getName());
-		newObj.setEmail(obj.getEmail());
-		newObj.setBirthDate(obj.getBirthDate());
-		newObj.setInstitution(obj.getInstitution());
+	public Student update(UpdateStudentDTO objDTO, Integer id) {
+		Student newObj = find(id);
+		Optional<Institution> institution = institutionRepository.findById(objDTO.getInstitutionId());
+		newObj.setName(objDTO.getName());
+		newObj.setEmail(objDTO.getEmail());
+		newObj.setBirthDate(objDTO.getBirthDate());
+		newObj.setInstitution(institution.get());
 		return studentRepository.save(newObj);
 	}
 }

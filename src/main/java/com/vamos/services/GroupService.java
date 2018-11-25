@@ -1,10 +1,9 @@
 package com.vamos.services;
 
-import com.vamos.domain.Passenger;
+import com.vamos.domain.Student;
 import com.vamos.domain.VanGroup;
 import com.vamos.dto.output.GroupDetailsDTO;
 import com.vamos.repositories.GroupRepository;
-import com.vamos.repositories.PassengerRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,78 +12,66 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class GroupService {
 
-	@Autowired
-	private GroupRepository groupRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
-	@Autowired
-	private PassengerRepository passengerRepository;
+    @Autowired
+    private StudentService studentService;
 
-	@Autowired
-	private StudentService studentService;
-	
-	public GroupDetailsDTO findGroup(Integer id) {
-		Optional<VanGroup> group = groupRepository.findById(id);
+    public GroupDetailsDTO findGroup(Integer id) {
+        Optional<VanGroup> group = groupRepository.findById(id);
 
-		if(group == null){
-			new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + GroupDetailsDTO.class.getName());
-		}
+        if (group == null) {
+            new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + GroupDetailsDTO.class.getName());
+        }
 
-		return convertVanGroupToGroupDetailsDTO(group.get());
-	}
+        return new GroupDetailsDTO(group.get());
+    }
 
-	public List<GroupDetailsDTO> findDriverGroups(Integer id) {
-		List<VanGroup> listGroup = groupRepository.findGroupsByDriverId(id);
+    public List<GroupDetailsDTO> findDriverGroups(Integer id) {
+        List<VanGroup> listGroup = groupRepository.findGroupsByDriverId(id);
 
-		if(listGroup == null){
-			new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + VanGroup.class.getName());
-		}
+        if (listGroup == null) {
+            new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + VanGroup.class.getName());
+        }
 
-		List<GroupDetailsDTO> vanGroups = new ArrayList<>();
-		for(VanGroup group : listGroup){
-			vanGroups.add(convertVanGroupToGroupDetailsDTO(group));
-		}
+        List<GroupDetailsDTO> vanGroups = new ArrayList<>();
+        for (VanGroup group : listGroup) {
+            vanGroups.add(new GroupDetailsDTO(group));
+        }
 
-		return vanGroups;
-	}
+        return vanGroups;
+    }
 
-	public List<GroupDetailsDTO> findStudentGroups(Integer id){
-		List<Passenger> listPassenger = passengerRepository.findAll(studentService.find(id));
+    public List<GroupDetailsDTO> findStudentGroups(Integer id) {
+        Student student = studentService.find(id);
+        Set<VanGroup> studentGroups = student.getGroups();
 
-		if(listPassenger == null){
-			new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Passenger.class.getName());
-		}
+        if (student == null) {
+            new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Student.class.getName());
+        }
 
-		if(listPassenger.size() == 0){
-			new Exception ("Objeto não encontrado! Id: " + id + ", Tipo: " + Passenger.class.getName());
-		}
+        if (studentGroups.size() == 0) {
+            new Exception("Objeto não encontrado! Id: " + id + ", Tipo: " + Student.class.getName());
+        }
 
-		List<GroupDetailsDTO> vanGroups = new ArrayList<>();
-		for(Passenger passenger : listPassenger){
-			vanGroups.add(convertVanGroupToGroupDetailsDTO(passenger.getGroup()));
-		}
+        List<GroupDetailsDTO> vanGroups = new ArrayList<>();
+        for (VanGroup group : studentGroups) {
+            vanGroups.add(new GroupDetailsDTO(group));
+        }
 
-		return vanGroups;
-	}
+        return vanGroups;
+    }
 
-	private GroupDetailsDTO convertVanGroupToGroupDetailsDTO(VanGroup group){
-		GroupDetailsDTO groupDTO = new GroupDetailsDTO();
-		groupDTO.setDriverName(group.getDriver().getName());
-		groupDTO.setGroupName(group.getName());
-		groupDTO.setInstitution(group.getInstitution().getDescription());
-		groupDTO.setMaxCapacity(group.getMaxCapacity());
-		groupDTO.setShift(group.getShift().getDescricao());
-
-		return groupDTO;
-	}
-
-	@Transactional
-	public VanGroup insert(VanGroup obj) {
-		obj.setId(null);
-		obj = groupRepository.save(obj);
-		return obj;
-	}
+    @Transactional
+    public VanGroup insert(VanGroup obj) {
+        obj.setId(null);
+        obj = groupRepository.save(obj);
+        return obj;
+    }
 }

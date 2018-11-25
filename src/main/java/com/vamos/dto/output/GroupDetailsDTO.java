@@ -1,5 +1,6 @@
 package com.vamos.dto.output;
 
+import com.vamos.domain.VanGroup;
 import com.vamos.services.validation.MotoristaUpdate;
 
 import java.io.Serializable;
@@ -18,6 +19,26 @@ public class GroupDetailsDTO implements Serializable {
 	private String shift;
 
 	private String driverName;
+
+	public GroupDetailsDTO(){
+
+	}
+
+	public GroupDetailsDTO(VanGroup group){
+		this.groupName = group.getName();
+		this.maxCapacity = group.getMaxCapacity();
+		this.institution = group.getInstitution().getDescription();
+		this.shift = group.getShift().getDescricao();
+		this.driverName = group.getDriver().getName();
+	}
+
+	public GroupDetailsDTO(String groupName, int maxCapacity, String institution, String shift, String driverName) {
+		this.groupName = groupName;
+		this.maxCapacity = maxCapacity;
+		this.institution = institution;
+		this.shift = shift;
+		this.driverName = driverName;
+	}
 
 	public String getGroupName() {
 		return groupName;
