@@ -30,7 +30,7 @@ public class DailySchedule implements Serializable {
 
     }
 
-    public DailySchedule(Integer id, DayEnum description, boolean going, boolean returning, Student passenger) {
+    public DailySchedule(Integer id, DayEnum description, boolean going, boolean returning, Student student) {
         this.id = id;
         this.description = (description == null) ? null : description.getCod();
         this.going = going;

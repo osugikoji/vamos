@@ -1,10 +1,12 @@
 package com.vamos.services;
 
+import com.vamos.domain.DailySchedule;
 import com.vamos.domain.Institution;
 import com.vamos.domain.Student;
 import com.vamos.dto.input.NewStudentDTO;
 import com.vamos.dto.input.UpdateStudentDTO;
 import com.vamos.repositories.AddressRepository;
+import com.vamos.repositories.DailyScheduleRepository;
 import com.vamos.repositories.InstitutionRepository;
 import com.vamos.repositories.StudentRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
@@ -13,6 +15,7 @@ import org.springframework.expression.spel.ast.OpAnd;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -21,12 +24,12 @@ public class StudentService {
 
 	@Autowired
 	private StudentRepository studentRepository;
-	
-	@Autowired
-	private AddressRepository addressRepository;
 
 	@Autowired
 	private InstitutionRepository institutionRepository;
+
+	@Autowired
+	private DailyScheduleRepository dailyScheduleRepository;
 
 	public Student find(Integer id) {
 		
@@ -61,5 +64,10 @@ public class StudentService {
 		newObj.setBirthDate(objDTO.getBirthDate());
 		newObj.setInstitution(institution.get());
 		return studentRepository.save(newObj);
+	}
+
+	public List<DailySchedule> findStudentSchedule(Integer id){
+		List<DailySchedule> dailySchedules = dailyScheduleRepository.findAllByStudent_Id(id);
+		return dailySchedules;
 	}
 }
