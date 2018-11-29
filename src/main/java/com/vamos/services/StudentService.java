@@ -12,6 +12,7 @@ import com.vamos.repositories.StudentRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.spel.ast.OpAnd;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,9 @@ public class StudentService {
 	@Autowired
 	private DailyScheduleRepository dailyScheduleRepository;
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	public Student find(Integer id) {
 		
 		Optional<Student> obj = studentRepository.findById(id);
@@ -49,7 +53,7 @@ public class StudentService {
 	@Transactional
 	public Student insert(NewStudentDTO newStudentDTO) {
 		Optional<Institution> institution = institutionRepository.findById(Integer.parseInt(newStudentDTO.getInstitutionId()));
-		Student obj = new Student(null, newStudentDTO.getName(), newStudentDTO.getEmail(), newStudentDTO.getPassword(),
+		Student obj = new Student(null, newStudentDTO.getName(), newStudentDTO.getEmail(), bCryptPasswordEncoder.encode(newStudentDTO.getPassword()),
 				null, institution.get(), null);
 		obj = studentRepository.save(obj);
 		//addressRepository.saveAll(obj.getAddresses());

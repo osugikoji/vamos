@@ -6,6 +6,7 @@ import com.vamos.domain.enums.PaymentStatusEnum;
 import com.vamos.domain.enums.ShiftEnum;
 import com.vamos.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -16,7 +17,8 @@ import java.util.List;
 
 @Service
 public class DBService {
-	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Autowired
 	private StateRepository stateRepository;
 	@Autowired
@@ -56,9 +58,9 @@ public class DBService {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		Driver driver1 = new Driver(null, "José da Silva", "jose@gmail.com", "123", sdf.parse("08/03/1965"), "01838955682", "12597" );
+		Driver driver1 = new Driver(null, "José da Silva", "jose@gmail.com", bCryptPasswordEncoder.encode("1234"), sdf.parse("08/03/1965"), "01838955682", "12597" );
 		driver1.getPhones().addAll(Arrays.asList("1998652354","1933245698"));
-		Driver driver2 = new Driver(null, "Claudio Oliveira", "claudio@gmail.com", "123", sdf.parse("08/03/1975"), "01838955682", "12597" );
+		Driver driver2 = new Driver(null, "Claudio Oliveira", "claudio@gmail.com", bCryptPasswordEncoder.encode("1234"), sdf.parse("08/03/1975"), "01838955682", "12597" );
 		driver2.getPhones().addAll(Arrays.asList("1996572345","1996357412"));
 		driverRepository.saveAll(Arrays.asList(driver1, driver2));
 		
@@ -67,9 +69,9 @@ public class DBService {
 		VanGroup vanGroup3 = new VanGroup(null, "VanGroup do Claudio", 15, institution2, ShiftEnum.AFTERNOON, driver2);
 		groupRepository.saveAll(Arrays.asList(vanGroup1, vanGroup2, vanGroup3));
 		
-		Student student1 = new Student(null, "Koji Osugi", "koji097@gmail.com", "1234", sdf.parse("08/03/1997"), institution1, PaymentStatusEnum.PENDING);
+		Student student1 = new Student(null, "Koji Osugi", "koji097@gmail.com", bCryptPasswordEncoder.encode("1234"), sdf.parse("08/03/1997"), institution1, PaymentStatusEnum.PENDING);
 		student1.getPhones().addAll(Arrays.asList("19982252031","1933297165"));
-		Student student2 = new Student(null, "Joao Zullo", "zullo@gmail.com", "1234", sdf.parse("08/03/1995"), institution2, PaymentStatusEnum.PAID);
+		Student student2 = new Student(null, "Joao Zullo", "zullo@gmail.com", bCryptPasswordEncoder.encode("1234"), sdf.parse("08/03/1995"), institution2, PaymentStatusEnum.PAID);
 		student2.getPhones().addAll(Arrays.asList("37334456989","3798562456"));
 		studentRepository.saveAll(Arrays.asList(student1, student2));
 

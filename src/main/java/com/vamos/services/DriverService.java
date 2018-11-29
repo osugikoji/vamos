@@ -2,7 +2,9 @@ package com.vamos.services;
 
 import java.util.Optional;
 
+import com.vamos.dto.input.NewDriverDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,9 @@ public class DriverService {
 
 	@Autowired
 	private DriverRepository driverRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	public Driver find(Integer id) {
 		
@@ -33,8 +38,8 @@ public class DriverService {
 	}
 	
 	@Transactional
-	public Driver insert(Driver obj) {
-		obj.setId(null);
+	public Driver insert(NewDriverDTO objDTO) {
+		Driver obj = new Driver(null, objDTO.getName(), objDTO.getEmail(), bCryptPasswordEncoder.encode(objDTO.getPassword()), null, objDTO.getCpf(), objDTO.getCnh());
 		obj = driverRepository.save(obj);
 		return obj;
 	}
