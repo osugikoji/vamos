@@ -7,19 +7,19 @@ public enum ShiftEnum {
 	NIGHT(3,"Noturno");
 	
 	private int cod;
-	private String descricao;
+	private String description;
 	
-	private ShiftEnum(int cod, String descricao) {
+	private ShiftEnum(int cod, String description) {
 		this.cod = cod;
-		this.descricao = descricao;
+		this.description = description;
 	}
 
 	public int getCod() {
 		return cod;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 	
 	public static ShiftEnum toEnum(Integer cod) {

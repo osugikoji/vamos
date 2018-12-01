@@ -3,12 +3,14 @@ package com.vamos.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.vamos.domain.enums.UserProfileEnum;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @MappedSuperclass
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
@@ -33,9 +35,12 @@ public abstract class User implements Serializable {
 	@ElementCollection
 	@CollectionTable()
 	private Set<String> phones = new HashSet<>();
+
+    @ElementCollection(fetch=FetchType.EAGER)
+    @CollectionTable
+    private Set<Integer> perfis = new HashSet<>();
 	
 	public User() {
-		
 	}
 
 	public User(Integer id, String name, String email, String password, Date birthDate) {
@@ -94,6 +99,14 @@ public abstract class User implements Serializable {
 	public void setPhones(Set<String> telefone) {
 		this.phones = telefone;
 	}
+
+    public Set<UserProfileEnum> getPerfis() {
+        return perfis.stream().map(x -> UserProfileEnum.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(UserProfileEnum perfil) {
+        perfis.add(perfil.getCod());
+    }
 
 	@Override
 	public int hashCode() {

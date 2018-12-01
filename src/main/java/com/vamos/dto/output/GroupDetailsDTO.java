@@ -28,7 +28,7 @@ public class GroupDetailsDTO implements Serializable {
 		this.groupName = group.getName();
 		this.maxCapacity = group.getMaxCapacity();
 		this.institution = group.getInstitution().getDescription();
-		this.shift = group.getShift().getDescricao();
+		this.shift = group.getShift().getDescription();
 		this.driverName = group.getDriver().getName();
 	}
 

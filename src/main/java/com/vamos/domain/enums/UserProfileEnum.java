@@ -1,19 +1,14 @@
 package com.vamos.domain.enums;
 
-public enum DayEnum {
+public enum UserProfileEnum {
 
-	MONDAY(1, "Segunda"),
-	TUESDAY(2, "Terca"),
-	WEDNESDAY(3, "Quarta"),
-	THURSDAY(4, "Quinta"),
-	FRIDAY(5, "Sexta"),
-	SATURDAY(6, "Sabado"),
-	SUNDAY(7, "Domingo");
+	DRIVER(1,"ROLE_DRIVER"),
+	STUDENT(2,"ROLE_STUDENT");
 
 	private int cod;
 	private String description;
 
-	private DayEnum(int cod, String description) {
+	private UserProfileEnum(int cod, String description) {
 		this.cod = cod;
 		this.description = description;
 	}
@@ -26,12 +21,12 @@ public enum DayEnum {
 		return description;
 	}
 	
-	public static DayEnum toEnum(Integer cod) {
+	public static UserProfileEnum toEnum(Integer cod) {
 		if(cod == null) {
 			return null;
 		}
 		
-		for(DayEnum x : DayEnum.values()) {
+		for(UserProfileEnum x : UserProfileEnum.values()) {
 			if(cod.equals(x.getCod())) {
 				return x;
 			}

@@ -4,6 +4,7 @@ import com.vamos.domain.*;
 import com.vamos.domain.enums.DayEnum;
 import com.vamos.domain.enums.PaymentStatusEnum;
 import com.vamos.domain.enums.ShiftEnum;
+import com.vamos.domain.enums.UserProfileEnum;
 import com.vamos.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

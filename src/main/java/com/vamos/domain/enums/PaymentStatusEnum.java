@@ -6,19 +6,19 @@ public enum PaymentStatusEnum {
 	PAID(2, "Pago");
 	
 	private int cod;
-	private String descricao;
+	private String description;
 	
-	private PaymentStatusEnum(int cod, String descricao) {
+	private PaymentStatusEnum(int cod, String description) {
 		this.cod = cod;
-		this.descricao = descricao;
+		this.description = description;
 	}
 
 	public int getCod() {
 		return cod;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 	
 	public static PaymentStatusEnum toEnum(Integer cod) {

@@ -10,72 +10,71 @@ import java.util.*;
 @Entity
 @JsonTypeName("student")
 public class Student extends User {
-	private static final long serialVersionUID = 1L;
-	
-	@OneToMany(mappedBy="student", cascade=CascadeType.ALL)
-	private List<Address> addresses = new ArrayList<>();
-	
-	@ManyToOne
-	@JoinColumn(name="institution_id")
-	private Institution institution;
+    private static final long serialVersionUID = 1L;
 
-	@JsonIgnore
-	@ManyToMany
-	private Set<VanGroup> groups = new HashSet<>();
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Address> addresses = new ArrayList<>();
 
-	private Integer paymentStatus;
+    @ManyToOne
+    @JoinColumn(name = "institution_id")
+    private Institution institution;
 
-	@OneToMany
-	private List<DailySchedule> dailySchedules = new ArrayList<>();
-	
-	public Student() {
-		
-	}
+    @JsonIgnore
+    @ManyToMany
+    private Set<VanGroup> groups = new HashSet<>();
 
-	public Student(Integer id, String name, String email, String password,
-	Date birthDate, Institution institution, PaymentStatusEnum paymentStatusEnum) {
-		super(id, name, email, password, birthDate);
-		this.institution = institution;
-		this.paymentStatus = (paymentStatusEnum == null) ? null : paymentStatusEnum.getCod();
-	}
+    private Integer paymentStatus;
 
-	public List<Address> getAddresses() {
-		return addresses;
-	}
+    @OneToMany
+    private List<DailySchedule> dailySchedules = new ArrayList<>();
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
+    public Student() {
+    }
 
-	public Institution getInstitution() {
-		return institution;
-	}
+    public Student(Integer id, String name, String email, String password,
+                   Date birthDate, Institution institution, PaymentStatusEnum paymentStatusEnum) {
+        super(id, name, email, password, birthDate);
+        this.institution = institution;
+        this.paymentStatus = (paymentStatusEnum == null) ? null : paymentStatusEnum.getCod();
+    }
 
-	public void setInstitution(Institution institution) {
-		this.institution = institution;
-	}
+    public List<Address> getAddresses() {
+        return addresses;
+    }
 
-	public PaymentStatusEnum getPaymentStatus() {
-		return PaymentStatusEnum.toEnum(this.paymentStatus);
-	}
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
 
-	public void setPaymentStatus(PaymentStatusEnum paymentStatusEnum) {
-		this.paymentStatus = paymentStatusEnum.getCod();
-	}
+    public Institution getInstitution() {
+        return institution;
+    }
 
-	public Set<VanGroup> getGroups() {
-		return groups;
-	}
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
 
-	public void setGroups(Set<VanGroup> groups) {
-		this.groups = groups;
-	}
+    public PaymentStatusEnum getPaymentStatus() {
+        return PaymentStatusEnum.toEnum(this.paymentStatus);
+    }
 
-	public List<DailySchedule> getDailySchedules() {
-		return dailySchedules;
-	}
+    public void setPaymentStatus(PaymentStatusEnum paymentStatusEnum) {
+        this.paymentStatus = paymentStatusEnum.getCod();
+    }
 
-	public void setDailySchedules(List<DailySchedule> dailySchedules) {
-		this.dailySchedules = dailySchedules;
-	}
+    public Set<VanGroup> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<VanGroup> groups) {
+        this.groups = groups;
+    }
+
+    public List<DailySchedule> getDailySchedules() {
+        return dailySchedules;
+    }
+
+    public void setDailySchedules(List<DailySchedule> dailySchedules) {
+        this.dailySchedules = dailySchedules;
+    }
 }
