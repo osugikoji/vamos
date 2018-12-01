@@ -39,8 +39,8 @@ public class SelectBoxService {
 		return selectBoxDTOs;
 	}
 
-	public List<SelectBoxDTO> findAllCitiesByState(String state){
-		List<City> cityList = cityRepository.findAllByState_Description(state);
+	public List<SelectBoxDTO> findAllCitiesByState(Integer stateId){
+		List<City> cityList = cityRepository.findAllByState_Id(stateId);
 		if(cityList == null){
 			// TODO: 20/11/2018 criar exception
 		}

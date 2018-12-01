@@ -21,7 +21,7 @@ public class Address implements Serializable {
 	private String street;
 	private String number;
 	private String complement;
-	private String neighborhood;
+	private String district;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -34,13 +34,13 @@ public class Address implements Serializable {
 	
 	public Address() {}
 	
-	public Address(Integer id, String street, String number, String complement, String neighborhood, City city, Student student) {
+	public Address(Integer id, String street, String number, String complement, String district, City city, Student student) {
 		super();
 		this.id = id;
 		this.street = street;
 		this.number = number;
 		this.complement = complement;
-		this.neighborhood = neighborhood;
+		this.district = district;
 		this.city = city;
 		this.student = student;
 	}
@@ -78,12 +78,12 @@ public class Address implements Serializable {
 		this.complement = complement;
 	}
 
-	public String getNeighborhood() {
-		return neighborhood;
+	public String getDistrict() {
+		return district;
 	}
 
-	public void setNeighborhood(String neighborhood) {
-		this.neighborhood = neighborhood;
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 
 	public City getCity() {

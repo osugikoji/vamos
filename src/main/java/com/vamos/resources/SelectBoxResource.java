@@ -32,13 +32,13 @@ public class SelectBoxResource {
     /**
      * Busca todas as cidades do estado correspondente
      *
-     * @param state o estado
+     * @param stateId id do estado
      * @return as cidades
      */
 
     @GetMapping("/citiesByState")
-    public ResponseEntity<List<SelectBoxDTO>> findAllCitiesByState(@RequestParam(value="value") String state){
-        List<SelectBoxDTO> selectBoxDTOs = selectBoxService.findAllCitiesByState(state);
+    public ResponseEntity<List<SelectBoxDTO>> findAllCitiesByState(@RequestParam(value="value") Integer stateId){
+        List<SelectBoxDTO> selectBoxDTOs = selectBoxService.findAllCitiesByState(stateId);
         return ResponseEntity.ok().body(selectBoxDTOs);
     }
 

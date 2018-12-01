@@ -1,8 +1,6 @@
 package com.vamos.services;
 
-import com.vamos.domain.DailySchedule;
-import com.vamos.domain.Institution;
-import com.vamos.domain.Student;
+import com.vamos.domain.*;
 import com.vamos.dto.input.NewStudentDTO;
 import com.vamos.dto.input.UpdateStudentDTO;
 import com.vamos.repositories.AddressRepository;
@@ -25,6 +23,9 @@ public class StudentService {
 
 	@Autowired
 	private StudentRepository studentRepository;
+
+	@Autowired
+	private AddressRepository addressRepository;
 
 	@Autowired
 	private InstitutionRepository institutionRepository;
@@ -52,12 +53,15 @@ public class StudentService {
 	
 	@Transactional
 	public Student insert(NewStudentDTO newStudentDTO) {
-		Optional<Institution> institution = institutionRepository.findById(Integer.parseInt(newStudentDTO.getInstitutionId()));
-		Student obj = new Student(null, newStudentDTO.getName(), newStudentDTO.getEmail(), bCryptPasswordEncoder.encode(newStudentDTO.getPassword()),
-				null, institution.get(), null);
-		obj = studentRepository.save(obj);
-		//addressRepository.saveAll(obj.getAddresses());
-		return obj;
+		Institution institution = new Institution(Integer.parseInt(newStudentDTO.getInstitutionId()), null);
+		State state = new State(Integer.parseInt(newStudentDTO.getStateId()), null);
+		City city = new City(Integer.parseInt(newStudentDTO.getCityId()), null, state);
+		Student student = new Student(null, newStudentDTO.getName(), newStudentDTO.getEmail(), bCryptPasswordEncoder.encode(newStudentDTO.getPassword()),
+				null, institution, null);
+		Address address = new Address(null, newStudentDTO.getStreet(), newStudentDTO.getNumber(), null, newStudentDTO.getDistrict(), city, student);
+		student = studentRepository.save(student);
+		addressRepository.save(address);
+		return student;
 	}
 	
 	public Student update(UpdateStudentDTO objDTO, Integer id) {

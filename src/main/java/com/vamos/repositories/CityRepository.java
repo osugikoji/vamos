@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CityRepository extends JpaRepository<City, Integer>{
 
-    List<City> findAllByState_Description(String state);
+    List<City> findAllByState_Id(Integer stateId);
 }

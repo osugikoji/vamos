@@ -19,7 +19,7 @@ public class NewStudentDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
-	@Length(min=3, max=20, message="O tamanho deve ser entre 5 e 20 caracteres")
+	@Length(min=5, max=20, message="O tamanho deve ser entre 5 e 20 caracteres")
 	private String name;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
@@ -34,9 +34,38 @@ public class NewStudentDTO implements Serializable {
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String phone;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String stateId;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String cityId;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String street;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String district;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String number;
 	
 	public NewStudentDTO() {
 		
+	}
+
+	public NewStudentDTO(String name, String email, String password, String institutionId, String phone, String stateId,
+	 String cityId, String street, String district, String number) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.institutionId = institutionId;
+		this.phone = phone;
+		this.stateId = stateId;
+		this.cityId = cityId;
+		this.street = street;
+		this.district = district;
+		this.number = number;
 	}
 
 	public String getName() {
@@ -79,4 +108,43 @@ public class NewStudentDTO implements Serializable {
 		this.institutionId = institutionId;
 	}
 
+	public String getStateId() {
+		return stateId;
+	}
+
+	public void setStateId(String stateId) {
+		this.stateId = stateId;
+	}
+
+	public String getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(String cityId) {
+		this.cityId = cityId;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
 }
