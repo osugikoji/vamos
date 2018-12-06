@@ -3,6 +3,7 @@ package com.vamos.resources;
 import com.vamos.domain.Driver;
 import com.vamos.dto.input.NewDriverDTO;
 import com.vamos.dto.input.UpdateDriverDTO;
+import com.vamos.dto.output.DriverDTO;
 import com.vamos.services.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

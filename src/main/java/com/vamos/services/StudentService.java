@@ -3,6 +3,7 @@ package com.vamos.services;
 import com.vamos.domain.*;
 import com.vamos.dto.input.NewStudentDTO;
 import com.vamos.dto.input.UpdateStudentDTO;
+import com.vamos.dto.output.StudentDTO;
 import com.vamos.repositories.AddressRepository;
 import com.vamos.repositories.DailyScheduleRepository;
 import com.vamos.repositories.InstitutionRepository;
@@ -36,19 +37,35 @@ public class StudentService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	public Student find(Integer id) {
+	public StudentDTO find(Integer id) {
 		
-		Optional<Student> obj = studentRepository.findById(id);
+		Optional<Student> student = studentRepository.findById(id);
 
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Student.class.getName()));
+		if(student == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Id: " +  ", Tipo: " + Student.class.getName());
+		}
+
+		Student obj = student.get();
+
+		Address address = obj.getAddresses().iterator().next();
+		StudentDTO objDTO = new StudentDTO(obj.getName(),obj.getEmail(),obj.getPhones().iterator().next(),obj.getInstitution().getDescription(),
+				address.getStreet(),address.getNumber(),address.getComplement(),address.getDistrict(),address.getCity().getDescription());
+
+		return objDTO;
 	}
 	
-	public Student findByEmail(String email) {
+	public StudentDTO findByEmail(String email) {
 		Student obj = studentRepository.findByEmail(email);
+
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id: " +  ", Tipo: " + Student.class.getName());
 		}
-		return obj;
+
+		Address address = obj.getAddresses().iterator().next();
+		StudentDTO objDTO = new StudentDTO(obj.getName(),obj.getEmail(),obj.getPhones().iterator().next(),obj.getInstitution().getDescription(),
+				address.getStreet(),address.getNumber(),address.getComplement(),address.getDistrict(),address.getCity().getDescription());
+
+		return objDTO;
 	}
 	
 	@Transactional
@@ -65,7 +82,8 @@ public class StudentService {
 	}
 	
 	public Student update(UpdateStudentDTO objDTO, Integer id) {
-		Student newObj = find(id);
+		Optional<Student> student = studentRepository.findById(id);
+		Student newObj = student.get();
 		Optional<Institution> institution = institutionRepository.findById(objDTO.getInstitutionId());
 		newObj.setName(objDTO.getName());
 		newObj.setEmail(objDTO.getEmail());

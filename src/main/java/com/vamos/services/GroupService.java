@@ -4,6 +4,7 @@ import com.vamos.domain.Student;
 import com.vamos.domain.VanGroup;
 import com.vamos.dto.output.GroupDetailsDTO;
 import com.vamos.repositories.GroupRepository;
+import com.vamos.repositories.StudentRepository;
 import com.vamos.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class GroupService {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    StudentRepository studentRepository;
 
     public GroupDetailsDTO findGroup(Integer id) {
         Optional<VanGroup> group = groupRepository.findById(id);
@@ -49,7 +53,8 @@ public class GroupService {
     }
 
     public List<GroupDetailsDTO> findStudentGroups(Integer id) {
-        Student student = studentService.find(id);
+        Optional<Student> student1 = studentRepository.findById(id);
+        Student student = student1.get();
         Set<VanGroup> studentGroups = student.getGroups();
 
         if (student == null) {

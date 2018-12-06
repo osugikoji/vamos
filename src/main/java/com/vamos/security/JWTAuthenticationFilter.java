@@ -52,6 +52,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = jwtUtil.generateToken(username);
         res.addHeader("Authorization", "Bearer " + token);
         res.addHeader("access-control-expose-headers", "Authorization");
+
+        res.setContentType("application/json");
+        res.setCharacterEncoding("UTF-8");
+        res.getWriter().write(
+                "{\"" + "status" + "\":\"" + "success" + "\"}"
+        );
     }
 
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
@@ -61,7 +67,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 throws IOException, ServletException {
             response.setStatus(401);
             response.setContentType("application/json");
-            response.getWriter().append(json());
+            //response.getWriter().append(json());
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(
+                    "{\"" + "status" + "\":\"" + "failed" + "\"}"
+            );
+
+
         }
 
         private String json() {

@@ -4,6 +4,7 @@ import com.vamos.domain.DailySchedule;
 import com.vamos.domain.Student;
 import com.vamos.dto.input.UpdateStudentDTO;
 import com.vamos.dto.input.NewStudentDTO;
+import com.vamos.dto.output.StudentDTO;
 import com.vamos.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,8 @@ public class StudentResource {
 	 * @return o estudante
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<Student> find(@PathVariable Integer id){
-		Student obj = studentService.find(id);
+	public ResponseEntity<StudentDTO> find(@PathVariable Integer id){
+		StudentDTO obj = studentService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
@@ -40,8 +41,8 @@ public class StudentResource {
 	 * @return o estudante
 	 */
 	@GetMapping("/email")
-	public ResponseEntity<Student> find(@RequestParam(value="value") String email){
-		Student obj = studentService.findByEmail(email);
+	public ResponseEntity<StudentDTO> find(@RequestParam(value="value") String email){
+		StudentDTO obj = studentService.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
 	}
 
